@@ -15,7 +15,6 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         title = "News"
 
-
         setUpViews()
         setConstraints()
         setTableviewDelegateAndDataSourse()
@@ -55,8 +54,7 @@ extension NewsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
            return 5
-       }
-
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
            return 10
