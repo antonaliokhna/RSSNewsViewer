@@ -14,6 +14,7 @@
 		643FA20D298D312D0067910A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643FA20B298D312D0067910A /* LaunchScreen.storyboard */; };
 		643FA219298D35AC0067910A /* NewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA218298D35AC0067910A /* NewsTableView.swift */; };
 		643FA21B298D37630067910A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA21A298D37630067910A /* NewsTableViewCell.swift */; };
+		643FA21D298D4D6E0067910A /* DetailNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA21C298D4D6E0067910A /* DetailNewsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		643FA20E298D312D0067910A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		643FA218298D35AC0067910A /* NewsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableView.swift; sourceTree = "<group>"; };
 		643FA21A298D37630067910A /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		643FA21C298D4D6E0067910A /* DetailNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			children = (
 				643FA217298D35820067910A /* Controllers */,
 				643FA215298D35540067910A /* CustomViews */,
+				643FA21C298D4D6E0067910A /* DetailNewsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				643FA201298D312C0067910A /* AppDelegate.swift in Sources */,
 				643FA21B298D37630067910A /* NewsTableViewCell.swift in Sources */,
 				643FA219298D35AC0067910A /* NewsTableView.swift in Sources */,
+				643FA21D298D4D6E0067910A /* DetailNewsView.swift in Sources */,
 				643FA203298D312C0067910A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
