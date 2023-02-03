@@ -8,46 +8,34 @@
 import UIKit
 import SwiftUI
 
-class ViewController: UIViewController {
-
-    private let label: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
-        label.textColor = .red
-        label.text = "empty label"
-        label.translatesAutoresizingMaskIntoConstraints = false
-
-        return label
-    }()
-
+class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .yellow
         title = "News"
-        newsTableView.dataSource = self
-        newsTableView.delegate = self
+
 
         setUpViews()
-        makeConstraints()
+        setConstraints()
+        setTableviewDelegateAndDataSourse()
     }
 
     private func setUpViews() {
         view.addSubview(newsTableView)
     }
+
+    private func setTableviewDelegateAndDataSourse() {
+        newsTableView.dataSource = self
+        newsTableView.delegate = self
+    }
+
 }
 
 
 //Constraints
-extension ViewController {
-    private func makeConstraints() {
-//        NSLayoutConstraint.activate([
-//            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//        ])
-
+extension NewsViewController {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -58,14 +46,24 @@ extension ViewController {
 
 }
 
-extension ViewController: UITableViewDelegate {
+extension NewsViewController: UITableViewDelegate {
 
 }
 
 
-extension ViewController: UITableViewDataSource {
+extension NewsViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+           return 5
+       }
+
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+           return 10
+    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         navigationController?.pushViewController(UIHostingController(rootView: DetailNewsView()), animated: true)
     }
 
@@ -75,7 +73,7 @@ extension ViewController: UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

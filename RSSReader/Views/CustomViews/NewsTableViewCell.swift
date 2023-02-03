@@ -52,6 +52,8 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
+  
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -74,7 +76,7 @@ class NewsTableViewCell: UITableViewCell {
     }
 
     private func configure() {
-        //contentView.backgroundColor = .lightGray
+        contentView.backgroundColor = .lightGray
         //contentView.layer.cornerRadius = 10
         contentView.alpha = 0.5
     }
@@ -86,9 +88,9 @@ extension NewsTableViewCell {
     private func makeConstraints() {
 
         NSLayoutConstraint.activate([
-            image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.topAnchor.constraint(equalTo: topAnchor),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+            image.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
             image.widthAnchor.constraint(equalToConstant: 100)
         ])
 

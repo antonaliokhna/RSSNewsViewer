@@ -17,9 +17,11 @@ class NewsTableView: UITableView {
 
 
         configure()
+        self.scrollIndicatorInsets = UIEdgeInsets(top: 44.0, left: 0.0, bottom: 0.0, right: 0.0);
 
         //delegate = self
        // dataSource = self
+
 
         translatesAutoresizingMaskIntoConstraints = false
 
@@ -32,7 +34,9 @@ class NewsTableView: UITableView {
     }
 
     private func configure() {
-        backgroundColor = .none
+
+        sectionHeaderTopPadding = 5
+       //backgroundColor = .green
         translatesAutoresizingMaskIntoConstraints = false
     }
 
