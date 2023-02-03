@@ -12,6 +12,7 @@ struct DetailNewsView: View {
         ScrollView {
             GeometryReader { geomerty in
 
+                //TODO: Fix Invalid frame dimension (negative or non-finite).
                 Image("no-image")
 
                     .scaledToFit()

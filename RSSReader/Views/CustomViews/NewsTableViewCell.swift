@@ -13,8 +13,10 @@ class NewsTableViewCell: UITableViewCell {
     let image: UIImageView = {
         let image = UIImageView(image: UIImage(named: "img"))
         image.translatesAutoresizingMaskIntoConstraints = false
-
         image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = 16
+
         return image
     }()
 
@@ -52,15 +54,12 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-  
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setUpViews()
         makeConstraints()
         configure()
-
     }
 
     required init?(coder: NSCoder) {
@@ -76,8 +75,8 @@ class NewsTableViewCell: UITableViewCell {
     }
 
     private func configure() {
-        contentView.backgroundColor = .lightGray
-        //contentView.layer.cornerRadius = 10
+        //contentView.backgroundColor = .lightGray
+        contentView.layer.cornerRadius = 10
         contentView.alpha = 0.5
     }
 
