@@ -9,20 +9,19 @@ import SwiftUI
 
 struct DetailNewsView: View {
     var body: some View {
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             GeometryReader { geomerty in
 
                 //TODO: Fix Invalid frame dimension (negative or non-finite).
                 Image("no-image")
-
                     .scaledToFit()
                     .offset(y: -geomerty.frame(in: .global).minY)
                     .frame(
                         width: UIScreen.main.bounds.width,
                         height: geomerty.frame(in: .global).minY < 0 ?
-                        geomerty.frame(in: .global).minY + 480 : 480)
+                        geomerty.frame(in: .global).minY + 360 : 360)
             }
-            .frame(height: 480)
+            .frame(height: 360)
 
             VStack(alignment: .leading, spacing: 16) {
                 Text("Header")
@@ -37,7 +36,7 @@ struct DetailNewsView: View {
             .frame(maxWidth: .infinity)
             .background(Color.blue)
             .cornerRadius(20)
-            .offset(y: -35)
+            .offset(y: -45)
         }
         .ignoresSafeArea()
         .toolbarBackground(.hidden, for: .navigationBar)
