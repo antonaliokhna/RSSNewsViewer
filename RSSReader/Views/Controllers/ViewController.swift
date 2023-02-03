@@ -24,15 +24,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .yellow
+        title = "News"
+
         setUpViews()
         makeConstraints()
     }
 
     private func setUpViews() {
-        //view.addSubview(label)
         view.addSubview(newsTableView)
     }
-
 }
 
 
