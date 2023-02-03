@@ -12,6 +12,8 @@
 		643FA205298D312C0067910A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA204298D312C0067910A /* ViewController.swift */; };
 		643FA20A298D312D0067910A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 643FA209298D312D0067910A /* Assets.xcassets */; };
 		643FA20D298D312D0067910A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 643FA20B298D312D0067910A /* LaunchScreen.storyboard */; };
+		643FA219298D35AC0067910A /* NewsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA218298D35AC0067910A /* NewsTableView.swift */; };
+		643FA21B298D37630067910A /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA21A298D37630067910A /* NewsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		643FA209298D312D0067910A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		643FA20C298D312D0067910A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		643FA20E298D312D0067910A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		643FA218298D35AC0067910A /* NewsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableView.swift; sourceTree = "<group>"; };
+		643FA21A298D37630067910A /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,48 @@
 		643FA1FF298D312C0067910A /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				643FA200298D312C0067910A /* AppDelegate.swift */,
-				643FA202298D312C0067910A /* SceneDelegate.swift */,
-				643FA204298D312C0067910A /* ViewController.swift */,
+				643FA216298D35660067910A /* Application */,
+				643FA214298D354C0067910A /* Views */,
 				643FA209298D312D0067910A /* Assets.xcassets */,
 				643FA20B298D312D0067910A /* LaunchScreen.storyboard */,
 				643FA20E298D312D0067910A /* Info.plist */,
 			);
 			path = RSSReader;
+			sourceTree = "<group>";
+		};
+		643FA214298D354C0067910A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				643FA217298D35820067910A /* Controllers */,
+				643FA215298D35540067910A /* CustomViews */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		643FA215298D35540067910A /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				643FA218298D35AC0067910A /* NewsTableView.swift */,
+				643FA21A298D37630067910A /* NewsTableViewCell.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		643FA216298D35660067910A /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				643FA200298D312C0067910A /* AppDelegate.swift */,
+				643FA202298D312C0067910A /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		643FA217298D35820067910A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				643FA204298D312C0067910A /* ViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +174,8 @@
 			files = (
 				643FA205298D312C0067910A /* ViewController.swift in Sources */,
 				643FA201298D312C0067910A /* AppDelegate.swift in Sources */,
+				643FA21B298D37630067910A /* NewsTableViewCell.swift in Sources */,
+				643FA219298D35AC0067910A /* NewsTableView.swift in Sources */,
 				643FA203298D312C0067910A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
