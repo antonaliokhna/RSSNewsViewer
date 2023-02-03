@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class NewsViewController: UIViewController {
+final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
 
     override func viewDidLoad() {

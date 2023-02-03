@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NewsTableViewCell: UITableViewCell {
+final class NewsTableViewCell: UITableViewCell {
 
     let image: UIImageView = {
         let image = UIImageView(image: UIImage(named: "img"))
