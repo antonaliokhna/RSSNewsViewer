@@ -8,27 +8,31 @@
 import UIKit
 import SwiftUI
 
+protocol Reloadable {
+    func reloadData()
+}
+
 final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
-    private let networkDataService: NetworkDataServiceType = NetworkDataService()
+
+    private let viewModel: NewsViewModel = NewsViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News"
+
+        viewModel.reloable = self
 
         setUpViews()
         setConstraints()
         setTableviewDelegateAndDataSourse()
 
         Task {
-            print("sda")
-            if let model = try? await networkDataService.fetchRssNews() {
-                print(model)
-            } else {
-                print("error")
-            }
+            try? await viewModel.loadNewsData()
         }
     }
+
+
 
     private func setUpViews() {
         view.addSubview(newsTableView)
@@ -37,6 +41,12 @@ final class NewsViewController: UIViewController {
     private func setTableviewDelegateAndDataSourse() {
         newsTableView.dataSource = self
         newsTableView.delegate = self
+    }
+}
+
+extension NewsViewController: Reloadable {
+    func reloadData() {
+        newsTableView.reloadData()
     }
 }
 
@@ -52,32 +62,29 @@ extension NewsViewController {
         ])
     }
 
-}
-
-extension NewsViewController: UITableViewDelegate {
-
-}
-
-
-extension NewsViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-           return 5
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-           return 10
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(UIHostingController(rootView: DetailNewsView()), animated: true)
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
 
 
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5
+    }
+
+}
+
+extension NewsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(UIHostingController(rootView: DetailNewsView()), animated: true)
+    }
+}
+
+
+extension NewsViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.newsModels.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
