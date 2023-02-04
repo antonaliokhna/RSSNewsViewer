@@ -87,7 +87,8 @@ extension NewsViewController {
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(UIHostingController(rootView: DetailNewsView()), animated: true)
+        let datail = DetailNewsView(viewModel: DetailNewsViewModel(autor: "Дарья Коршунова", title: "Месси пожаловался на «убивавших» его на чемпионате мира-2022 журналистов", description: "<![CDATA[Капитан сборной Аргентины Лионель Месси рассказал о давлении со стороны журналистов во время чемпионата мира-2022 в Катаре. «Я думаю, люди видели все, с чем я боролся, пытаясь достичь этой цели, думаю, что то, с чем я столкнулся в сборной Аргентины, показалось многим людям несправедливым», — сказал он.]]>", pubDate: "Fri, 03 Feb 2023 14:24:00 +0300", image: UIImage(named: "img")!, caterogy: "Спорт"))
+        navigationController?.pushViewController(UIHostingController(rootView: datail), animated: true)
     }
 }
 
@@ -110,7 +111,7 @@ extension NewsViewController: UITableViewDataSource {
 
         let cellViewModel = viewModel.getCellViewModel(at: indexPath)
         cell.cellViewModel = cellViewModel
-        
+
         return cell
     }
 
