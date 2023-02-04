@@ -119,7 +119,7 @@ extension NewsViewController: UITableViewDataSource {
 extension NewsViewController {
     private func setConstraints() {
         newsTableView.snp.makeConstraints { make in
-            make.edges.equalTo(view)
+            make.edges.equalToSuperview()
         }
     }
 }

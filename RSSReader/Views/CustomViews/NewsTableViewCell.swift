@@ -114,7 +114,6 @@ extension NewsTableViewCell: Reloadable {
 //MARK: makeConstraints
 extension NewsTableViewCell {
     private func makeConstraints() {
-
         image.snp.makeConstraints { make in
             make.verticalEdges.leading.equalToSuperview().inset(8)
             make.width.equalTo(96)
