@@ -1,56 +1,70 @@
 //
-//  NewsViewModel.swift
+//  NewsCellViewModel.swift
 //  RSSReader
 //
-//  Created by Anton Aliokhna on 2/3/23.
+//  Created by Anton Aliokhna on 2/4/23.
 //
 
 import Foundation
+import UIKit
 
-final class NewsViewModel {
+final class NewsViewModel: ObservableObject {
     private let networkService: NetworkDataService = NetworkDataService()
     var reloable: Reloadable?
 
-    private(set) var newsModels: [RssModel.NewsModel] = []
-    private(set) var status: RequestStatuses = .loading {
-        didSet {
-            DispatchQueue.main.async {
-                self.reloable?.reloadData()
-            }
-        }
-    }
+    var author: String
+    var title: String
+    var description: String
+    var pubDate: String
+    var category: String
+    var image: UIImage
 
-    func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel {
-        let news = newsModels[indexPath.row]
+    var link: URL?
+    var imageURL: URL?
 
-        return NewsCellViewModel(
-            imageURL: news.enclosure?.url,
-            title: news.title,
-            pubDate: news.pubDate
-        )
+    var imageData: Data?
+    var viewed: Bool
+
+    init(newsModel: NewsModel) {
+        self.author = newsModel.author
+        self.title = newsModel.title
+        self.description = newsModel.description
+        self.pubDate = newsModel.pubDate
+        self.category = newsModel.category
+        self.link = newsModel.link
+        self.imageURL = newsModel.enclosure?.url
+
+        self.imageData = newsModel.imageData
+        self.viewed = newsModel.viewed ?? false
+
+        self.image = UIImage(named: "img")!
     }
 }
 
-//final class NewsCellViewModel {
-
-//}
-
-
 extension NewsViewModel {
-    func loadNewsData() async {
+    func loadImage() async {
+        //костыль
+        guard let imageURL = imageURL, imageData == nil else { return }
         do {
-            let model = try await self.networkService.fetchRssNews()
+            let imageData = try await self.networkService.fetchImageData(
+                stringURL: imageURL.absoluteString
+            )
 
-            self.newsModels = model.channel.item
-            self.status = .sucsess
+            guard let image = UIImage(data: imageData) else { return }
+            self.imageData = imageData
+            self.image = image
+
+            DispatchQueue.main.async {
+                self.reloable?.reloadData()
+            }
 
         } catch {
-            guard let error = error as? CustomError else {
-                self.status = .failed(error: .localError(error: .unknownError))
-
-                return
-            }
-            self.status = .failed(error: error)
+//            guard let error = error as? CustomError else {
+//                self.status = .failed(error: .localError(error: .unknownError))
+//
+//                return
+//            }
+//            self.status = .failed(error: error)
         }
     }
 }

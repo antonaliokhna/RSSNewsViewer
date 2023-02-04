@@ -15,12 +15,11 @@ protocol Reloadable {
 final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
 
-    private let viewModel: NewsViewModel = NewsViewModel()
+    private let viewModel: NewsListViewModel = NewsListViewModel()
 
-    let refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
 
-
-    @objc func refresh(_ sender: AnyObject) {
+    @objc private func refresh(_ sender: AnyObject) {
         Task {
             try? await viewModel.loadNewsData()
             refreshControl.endRefreshing()
@@ -32,9 +31,13 @@ final class NewsViewController: UIViewController {
         title = "News"
 
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(
+            self,
+            action: #selector(self.refresh(_:)),
+            for: .valueChanged
+        )
+
         newsTableView.refreshControl = refreshControl
-        // newsTableView.addSubview(refreshControl) // not required when using UITableViewController
 
         viewModel.reloable = self
 
@@ -63,43 +66,39 @@ extension NewsViewController: Reloadable {
     }
 }
 
-//Constraints
-extension NewsViewController {
-    private func setConstraints() {
-        NSLayoutConstraint.activate([
-            newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            newsTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            newsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+//MARK: UITableViewDelegate
+extension NewsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let cellViewModel = viewModel.getCellViewModel(at: indexPath)
+        cellViewModel.viewed = true
+        cellViewModel.reloable?.reloadData()
+        let datail = DetailNewsView(viewModel: cellViewModel)
+        
+        navigationController?.pushViewController(UIHostingController(rootView: datail), animated: true)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 5
+        let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, -100, -10, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0.5
+
+        UIView.animate (withDuration: 0.5) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1
+        }
     }
-
 }
 
-extension NewsViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let datail = DetailNewsView(viewModel: DetailNewsViewModel(autor: "Дарья Коршунова", title: "Месси пожаловался на «убивавших» его на чемпионате мира-2022 журналистов", description: "<![CDATA[Капитан сборной Аргентины Лионель Месси рассказал о давлении со стороны журналистов во время чемпионата мира-2022 в Катаре. «Я думаю, люди видели все, с чем я боролся, пытаясь достичь этой цели, думаю, что то, с чем я столкнулся в сборной Аргентины, показалось многим людям несправедливым», — сказал он.]]>", pubDate: "Fri, 03 Feb 2023 14:24:00 +0300", image: UIImage(named: "img")!, caterogy: "Спорт", link: URL(string: "https://lenta.ru/news/2023/02/03/piotr_pavel")!))
-        navigationController?.pushViewController(UIHostingController(rootView: datail), animated: true)
-    }
-}
-
-
+// MARK: UITableViewDataSource
 extension NewsViewController: UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.newsModels.count
+        return viewModel.newsViewModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,18 +113,19 @@ extension NewsViewController: UITableViewDataSource {
 
         return cell
     }
+}
 
-    //animation
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, -100, -10, 0)
-        cell.layer.transform = rotationTransform
-        cell.alpha = 0.5
-
-        UIView.animate (withDuration: 0.5) {
-            cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1
-        }
+// MARK: setConstraints
+extension NewsViewController {
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            newsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
     }
 }
+
+
 

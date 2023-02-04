@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct DetailNewsView: View {
-    let viewModel: DetailNewsViewModel
-
+    @ObservedObject var viewModel: NewsViewModel
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             paralaxImage
@@ -22,7 +22,7 @@ struct DetailNewsView: View {
             .offset(y: -45)
         }
         .ignoresSafeArea()
-        .navigationTitle(viewModel.caterogy)
+        .navigationTitle(viewModel.category)
         .navigationBarTitleDisplayMode(.inline)
         .background(BackroundGradientView())
     }
@@ -64,7 +64,7 @@ struct DetailNewsView: View {
                         .font(.subheadline)
                         .fontWeight(.light)
 
-                    Text(viewModel.autor)
+                    Text(viewModel.author)
                         .font(.headline)
                         .bold()
                 }
@@ -95,17 +95,20 @@ struct DetailNewsView: View {
 
             Divider()
 
-            Link("Link to article", destination: viewModel.link)
+            if let link = viewModel.link {
+                Link("Link to article", destination: link)
+            }
         }
         .padding()
     }
 }
 
-struct DetailNewsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailNewsView(viewModel: DetailNewsViewModel(autor: "Дарья Коршунова", title: "Месси пожаловался на «убивавших» его на чемпионате мира-2022 журналистов", description: "<![CDATA[Капитан сборной Аргентины Лионель Месси рассказал о давлении со стороны журналистов во время чемпионата мира-2022 в Катаре. «Я думаю, люди видели все, с чем я боролся, пытаясь достичь этой цели, думаю, что то, с чем я столкнулся в сборной Аргентины, показалось многим людям несправедливым», — сказал он.]]>", pubDate: "27-02-2022 15:55", image: UIImage(named: "img")!, caterogy: "Спорт", link: URL(string: "https://lenta.ru/news/2023/02/03/piotr_pavel")!))
-    }
-}
+
+//struct DetailNewsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewsViewController()
+//    }
+//}
 
 enum ColorTheme {
     static let dark = [

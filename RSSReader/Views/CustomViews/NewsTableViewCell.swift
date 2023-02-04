@@ -13,7 +13,6 @@ final class NewsTableViewCell: UITableViewCell {
     private let image: UIImageView = {
         let image = UIImageView(image: UIImage(named: "img"))
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 16
 
@@ -22,52 +21,55 @@ final class NewsTableViewCell: UITableViewCell {
 
     private let title: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
-
-        return label
-    }()
-
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 12)
-        label.numberOfLines = 2
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.numberOfLines = 3
 
         return label
     }()
 
     private let dateCreate: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14, weight: .light)
 
         return label
     }()
 
     private let viewedCheckbox: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14, weight: .light)
 
-        label.text = "Sucsess"
+        label.text = "No"
         return label
     }()
 
     //private let abobus: Image
 
-    var cellViewModel: NewsCellViewModel? {
+    var cellViewModel: NewsViewModel? {
         didSet {
+            //print("das")
+            Task {
+               try? await cellViewModel?.loadImage()
+            }
             guard let cellViewModel = cellViewModel else { return }
+            cellViewModel.reloable = self
             setValueBy(viewModel: cellViewModel)
         }
     }
 
-    private func setValueBy(viewModel: NewsCellViewModel) {
-  
-        image.image = viewModel.image ?? UIImage(named: "img")
+    func setValueBy(viewModel: NewsViewModel) {
+        image.image = viewModel.image
         title.text = viewModel.title
         dateCreate.text = viewModel.pubDate
+
+        if viewModel.viewed {
+            viewedCheckbox.text = "Viewed!"
+            backgroundColor = .systemGray5
+        } else {
+            backgroundColor = .none
+        }
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -85,7 +87,6 @@ final class NewsTableViewCell: UITableViewCell {
     private func setUpViews() {
         addSubview(image)
         addSubview(title)
-        addSubview(descriptionLabel)
         addSubview(dateCreate)
         addSubview(viewedCheckbox)
     }
@@ -93,9 +94,17 @@ final class NewsTableViewCell: UITableViewCell {
     private func configure() {
         //contentView.backgroundColor = .lightGray
         contentView.layer.cornerRadius = 10
-        contentView.alpha = 0.5
+
     }
 
+}
+
+//MARK: Reloadable
+extension NewsTableViewCell: Reloadable {
+    func reloadData() {
+        guard let viewModel = cellViewModel else { return }
+        setValueBy(viewModel: viewModel)
+    }
 }
 
 //MARK: - setConstraints
@@ -106,7 +115,7 @@ extension NewsTableViewCell {
             image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             image.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            image.widthAnchor.constraint(equalToConstant: 100)
+            image.widthAnchor.constraint(equalToConstant: 96)
         ])
 
         NSLayoutConstraint.activate([
@@ -116,20 +125,13 @@ extension NewsTableViewCell {
         ])
 
         NSLayoutConstraint.activate([
-            descriptionLabel.topAnchor.constraint(equalTo: title.bottomAnchor),
-            descriptionLabel.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: dateCreate.topAnchor, constant: -8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            viewedCheckbox.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16),
+            viewedCheckbox.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
         ])
 
         NSLayoutConstraint.activate([
             dateCreate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             dateCreate.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-        ])
-
-        NSLayoutConstraint.activate([
-            viewedCheckbox.leadingAnchor.constraint(equalTo: title.leadingAnchor),
-            viewedCheckbox.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
         ])
     }
 }

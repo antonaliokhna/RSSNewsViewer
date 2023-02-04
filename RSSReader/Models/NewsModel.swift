@@ -14,19 +14,21 @@ struct RssModel: Codable {
         let language: String
         let item: [NewsModel]
     }
-
-    struct NewsModel: Codable {
-        let author: String
-        let title: String
-        let link: URL
-        let description: String
-        let pubDate: String
-        let enclosure: Enclosure?
-        let category: String
-
-        struct Enclosure: Codable {
-            let url: String
-        }
-    }
 }
 
+struct NewsModel: Codable {
+    let author: String
+    let title: String
+    let link: URL?
+    let description: String
+    let pubDate: String
+    let enclosure: Enclosure?
+    let category: String
+
+    let viewed: Bool?
+    let imageData: Data?
+
+    struct Enclosure: Codable {
+        let url: URL
+    }
+}
