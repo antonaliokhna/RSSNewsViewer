@@ -15,6 +15,7 @@ struct DetailNewsViewModel {
     let pubDate: String
     let image: UIImage
     let caterogy: String
+    let link: URL
 }
 //
 //<item>

@@ -18,6 +18,7 @@ struct RssModel: Codable {
     struct NewsModel: Codable {
         let author: String
         let title: String
+        let link: URL
         let description: String
         let pubDate: String
         let enclosure: Enclosure?
