@@ -88,7 +88,7 @@ final class NewsTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setUpViews()
-        SetConstraints()
+        makeConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -111,9 +111,9 @@ extension NewsTableViewCell: Reloadable {
     }
 }
 
-//MARK: SetConstraints
+//MARK: makeConstraints
 extension NewsTableViewCell {
-    private func SetConstraints() {
+    private func makeConstraints() {
 
         image.snp.makeConstraints { make in
             make.verticalEdges.leading.equalToSuperview().inset(8)
