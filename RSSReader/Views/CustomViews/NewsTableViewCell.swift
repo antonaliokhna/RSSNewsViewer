@@ -115,28 +115,25 @@ extension NewsTableViewCell: Reloadable {
 extension NewsTableViewCell {
     private func SetConstraints() {
 
-        NSLayoutConstraint.activate([
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            image.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            image.widthAnchor.constraint(equalToConstant: 96)
-        ])
+        image.snp.makeConstraints { make in
+            make.verticalEdges.leading.equalToSuperview().inset(8)
+            make.width.equalTo(96)
+        }
 
-        NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-        ])
+        title.snp.makeConstraints { make in
+            make.trailing.top.equalToSuperview().inset(8)
+            make.leading.equalTo(image.snp.trailing).inset(-16)
+        }
 
-        NSLayoutConstraint.activate([
-            viewedCheckbox.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16),
-            viewedCheckbox.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-        ])
+        viewedCheckbox.snp.makeConstraints { make in
+            make.leading.equalTo(title)
+            make.bottom.equalTo(image)
+        }
 
-        NSLayoutConstraint.activate([
-            dateCreate.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dateCreate.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-        ])
+        dateCreate.snp.makeConstraints { make in
+            make.trailing.equalTo(title)
+            make.bottom.equalTo(image)
+        }
     }
 }
 
