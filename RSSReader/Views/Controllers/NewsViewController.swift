@@ -17,9 +17,24 @@ final class NewsViewController: UIViewController {
 
     private let viewModel: NewsViewModel = NewsViewModel()
 
+    let refreshControl = UIRefreshControl()
+
+
+    @objc func refresh(_ sender: AnyObject) {
+        Task {
+            try? await viewModel.loadNewsData()
+            refreshControl.endRefreshing()
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "News"
+
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        newsTableView.refreshControl = refreshControl
+        // newsTableView.addSubview(refreshControl) // not required when using UITableViewController
 
         viewModel.reloable = self
 
@@ -31,8 +46,6 @@ final class NewsViewController: UIViewController {
             try? await viewModel.loadNewsData()
         }
     }
-
-
 
     private func setUpViews() {
         view.addSubview(newsTableView)
@@ -49,7 +62,6 @@ extension NewsViewController: Reloadable {
         newsTableView.reloadData()
     }
 }
-
 
 //Constraints
 extension NewsViewController {
@@ -83,10 +95,10 @@ extension NewsViewController: UITableViewDelegate {
 extension NewsViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.newsModels.count
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.newsModels.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,12 +107,25 @@ extension NewsViewController: UITableViewDataSource {
             for: indexPath
         ) as? NewsTableViewCell else { return UITableViewCell() }
 
-        cell.title.text = "Abubus news"
-        cell.descriptionLabel.text = "Abubus news Abubus news Abub, constant: -16, constant: -16, constant: -16us news Abubus news Abubus news"
-        cell.dateCreate.text = "11.09.2012"
+        let item = viewModel.newsModels[indexPath.row]
+        cell.title.text = item.title
+        cell.descriptionLabel.text = item.description
+        cell.dateCreate.text = "12-17-2021"
 
         return cell
     }
 
+    //animation
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, -100, -10, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0.5
+
+        UIView.animate (withDuration: 0.5) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1
+        }
+    }
 }
 

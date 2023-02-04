@@ -7,7 +7,6 @@
 
 import Foundation
 import XMLParsing
-import SwiftyXMLParser
 
 final class XMLDataFetcher: NSObject, DataFetcherType {
     private let service: DataFetcherServiceType

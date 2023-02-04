@@ -19,7 +19,15 @@ final class NewsViewModel {
             }
         }
     }
+
+//    func getCellViewModel(at indexPath: IndexPath) -> RssModel.NewsModel {
+//        return newsModels[indexPath.row]
+//    }
 }
+
+//final class NewsCellViewModel {
+
+//}
 
 
 extension NewsViewModel {
@@ -29,7 +37,6 @@ extension NewsViewModel {
 
             self.newsModels = model.channel.item
             self.status = .sucsess
-
 
         } catch {
             guard let error = error as? CustomError else {

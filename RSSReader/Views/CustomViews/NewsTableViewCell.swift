@@ -95,6 +95,7 @@ extension NewsTableViewCell {
 
         NSLayoutConstraint.activate([
             title.leadingAnchor.constraint(equalTo: image.trailingAnchor, constant: 16),
+            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             title.topAnchor.constraint(equalTo: topAnchor, constant: 8),
         ])
 
