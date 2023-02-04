@@ -10,6 +10,7 @@ import SwiftUI
 
 final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
+    private let networkDataService: NetworkDataServiceType = NetworkDataService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,15 @@ final class NewsViewController: UIViewController {
         setUpViews()
         setConstraints()
         setTableviewDelegateAndDataSourse()
+
+        Task {
+            print("sda")
+            if let model = try? await networkDataService.fetchRssNews() {
+                print(model)
+            } else {
+                print("error")
+            }
+        }
     }
 
     private func setUpViews() {
@@ -60,7 +70,6 @@ extension NewsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         navigationController?.pushViewController(UIHostingController(rootView: DetailNewsView()), animated: true)
     }
 

@@ -7,11 +7,27 @@
 
 import Foundation
 
-struct NewsModel: Decodable {
-    let author: String
-    let title: String
-    let description: String
-    let pubDate: String
-    let enclosure: String
-    let category: String
+struct RssModel: Codable {
+    let channel: ChannelModel
+
+    struct ChannelModel: Codable {
+        let language: String
+        let item: [NewsModel]
+    }
+
+    struct NewsModel: Codable {
+        let author: String
+        let title: String
+        let description: String
+        let pubDate: String
+        let enclosure: Enclosure?
+        let category: String
+
+        struct Enclosure: Codable {
+            var url: URL
+            var length: String
+            var type: String
+        }
+    }
 }
+
