@@ -11,5 +11,5 @@ protocol DataFetcherServiceType {
     func fetch(
         from url: String,
         parameters: Parameters
-    ) async throws -> Data
+    ) async throws -> Data?
 }

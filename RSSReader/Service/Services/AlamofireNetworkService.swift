@@ -18,7 +18,7 @@ final class AlamofireNetworkService: ServiceType {
         return Session(configuration: configuration)
     }()
 
-    func fetch(from url: String, parameters: Parameters) async throws -> Data {
+    func fetch(from url: String, parameters: Parameters) async throws -> Data? {
         guard let url = URL(string: url) else {
             throw CustomError.networkError(error: .invalidURL)
         }

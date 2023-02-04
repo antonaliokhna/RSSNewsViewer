@@ -36,6 +36,10 @@ final class DataFetcher: DataFetcherType {
             throw CustomError.codableError(error: .dataIsEmpty)
         }
 
+        if let object = data as? T {
+           return object
+        }
+
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         guard let object = try? decoder.decode(type, from: data) else {

@@ -24,9 +24,7 @@ struct RssModel: Codable {
         let category: String
 
         struct Enclosure: Codable {
-            var url: URL
-            var length: String
-            var type: String
+            let url: String
         }
     }
 }

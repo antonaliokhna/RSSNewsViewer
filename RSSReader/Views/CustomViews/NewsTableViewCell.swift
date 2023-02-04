@@ -54,6 +54,8 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
+    //private let abobus: Image
+
     var cellViewModel: NewsCellViewModel? {
         didSet {
             guard let cellViewModel = cellViewModel else { return }
@@ -62,6 +64,8 @@ final class NewsTableViewCell: UITableViewCell {
     }
 
     private func setValueBy(viewModel: NewsCellViewModel) {
+  
+        image.image = viewModel.image ?? UIImage(named: "img")
         title.text = viewModel.title
         dateCreate.text = viewModel.pubDate
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 extension AFError {
     var convertToNetworkError: NetworkError {
@@ -29,3 +30,4 @@ extension AFError {
         return networkError
     }
 }
+

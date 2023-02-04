@@ -8,7 +8,7 @@
 import Foundation
 
 final class NewsViewModel {
-    private let networkService: NetworkDataServiceType = NetworkDataService()
+    private let networkService: NetworkDataService = NetworkDataService()
     var reloable: Reloadable?
 
     private(set) var newsModels: [RssModel.NewsModel] = []
@@ -22,7 +22,7 @@ final class NewsViewModel {
 
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel {
         let news = newsModels[indexPath.row]
-       
+
         return NewsCellViewModel(
             imageURL: news.enclosure?.url,
             title: news.title,
