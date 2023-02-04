@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import SnapKit
 
 final class NewsViewController: UIViewController {
 
@@ -117,12 +118,9 @@ extension NewsViewController: UITableViewDataSource {
 // MARK: setConstraints
 extension NewsViewController {
     private func setConstraints() {
-        NSLayoutConstraint.activate([
-            newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            newsTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            newsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        newsTableView.snp.makeConstraints { make in
+            make.edges.equalTo(view)
+        }
     }
 }
 
