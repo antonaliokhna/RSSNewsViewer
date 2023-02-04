@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		643A4452298F15A10045A739 /* Reloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4451298F15A10045A739 /* Reloadable.swift */; };
 		643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA825298E3FDD00CA082F /* RequestStatuses.swift */; };
 		643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA827298E6F5700CA082F /* NewsViewModel.swift */; };
 		643FA201298D312C0067910A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA200298D312C0067910A /* AppDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		643A4451298F15A10045A739 /* Reloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reloadable.swift; sourceTree = "<group>"; };
 		643AA825298E3FDD00CA082F /* RequestStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatuses.swift; sourceTree = "<group>"; };
 		643AA827298E6F5700CA082F /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		643FA1FD298D312C0067910A /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		643A4450298F15940045A739 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				643A4451298F15A10045A739 /* Reloadable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		643AA824298E3FD500CA082F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +135,7 @@
 		643FA214298D354C0067910A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				643A4450298F15940045A739 /* Protocols */,
 				643FA21C298D4D6E0067910A /* DetailNewsView.swift */,
 				643FA217298D35820067910A /* Controllers */,
 				643FA215298D35540067910A /* CustomViews */,
@@ -336,6 +347,7 @@
 				643FA23A298D85590067910A /* DataFetcherType.swift in Sources */,
 				643FA21B298D37630067910A /* NewsTableViewCell.swift in Sources */,
 				643FA219298D35AC0067910A /* NewsTableView.swift in Sources */,
+				643A4452298F15A10045A739 /* Reloadable.swift in Sources */,
 				643FA240298D85590067910A /* CodableError.swift in Sources */,
 				643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */,
 				643FA239298D85590067910A /* ServiceType.swift in Sources */,

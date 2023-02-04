@@ -8,12 +8,12 @@
 import UIKit
 import SwiftUI
 
-protocol Reloadable {
-    func reloadData()
-}
-
 final class NewsViewController: UIViewController {
-    private let newsTableView: NewsTableView = NewsTableView(frame: .zero, style: .plain)
+
+    private let newsTableView: NewsTableView = NewsTableView(
+        frame: .zero,
+        style: .plain
+    )
 
     private let viewModel: NewsListViewModel = NewsListViewModel()
 
@@ -69,13 +69,12 @@ extension NewsViewController: Reloadable {
 //MARK: UITableViewDelegate
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let cellViewModel = viewModel.getCellViewModel(at: indexPath)
-        cellViewModel.viewed = true
-        cellViewModel.reloable?.reloadData()
-        let datail = DetailNewsView(viewModel: cellViewModel)
+        let viewModel = viewModel.getNewsViewModel(at: indexPath)
+        let datailNewsView = DetailNewsView(viewModel: viewModel)
         
-        navigationController?.pushViewController(UIHostingController(rootView: datail), animated: true)
+        navigationController?.pushViewController(UIHostingController(rootView: datailNewsView), animated: true)
+        viewModel.viewed = true
+        viewModel.reloable?.reloadData()
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -84,7 +83,7 @@ extension NewsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
-        let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, -100, -10, 0)
+        let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, 0, -60, 0)
         cell.layer.transform = rotationTransform
         cell.alpha = 0.5
 
@@ -108,8 +107,8 @@ extension NewsViewController: UITableViewDataSource {
         ) as? NewsTableViewCell else { return UITableViewCell() }
 
 
-        let cellViewModel = viewModel.getCellViewModel(at: indexPath)
-        cell.cellViewModel = cellViewModel
+        let viewModel = viewModel.getNewsViewModel(at: indexPath)
+        cell.setViewModel(viewModel: viewModel)
 
         return cell
     }

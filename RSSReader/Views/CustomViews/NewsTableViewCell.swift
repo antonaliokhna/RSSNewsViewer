@@ -45,21 +45,26 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    //private let abobus: Image
+    weak var viewModel: NewsViewModel?
+
 
     var cellViewModel: NewsViewModel? {
         didSet {
             //print("das")
-            Task {
-               try? await cellViewModel?.loadImage()
-            }
-            guard let cellViewModel = cellViewModel else { return }
-            cellViewModel.reloable = self
-            setValueBy(viewModel: cellViewModel)
+//            Task {
+//               try? await cellViewModel?.loadImage()
+//            }
+            //guard let cellViewModel = cellViewModel else { return }
+            //cellViewModel.reloable = self
+            //setViewModel(viewModel: cellViewModel)
         }
     }
 
-    func setValueBy(viewModel: NewsViewModel) {
+    func setViewModel(viewModel: NewsViewModel) {
+        viewModel.reloable = self
+        self.viewModel = viewModel
+        loadImageFromViewModel()
+
         image.image = viewModel.image
         title.text = viewModel.title
         dateCreate.text = viewModel.pubDate
@@ -70,14 +75,20 @@ final class NewsTableViewCell: UITableViewCell {
         } else {
             backgroundColor = .none
         }
+
+    }
+
+    private func loadImageFromViewModel() {
+        Task {
+           await viewModel?.loadImage()
+        }
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setUpViews()
-        makeConstraints()
-        configure()
+        SetConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -90,26 +101,19 @@ final class NewsTableViewCell: UITableViewCell {
         addSubview(dateCreate)
         addSubview(viewedCheckbox)
     }
-
-    private func configure() {
-        //contentView.backgroundColor = .lightGray
-        contentView.layer.cornerRadius = 10
-
-    }
-
 }
 
 //MARK: Reloadable
 extension NewsTableViewCell: Reloadable {
     func reloadData() {
-        guard let viewModel = cellViewModel else { return }
-        setValueBy(viewModel: viewModel)
+        guard let viewModel = viewModel else { return }
+        setViewModel(viewModel: viewModel)
     }
 }
 
-//MARK: - setConstraints
+//MARK: SetConstraints
 extension NewsTableViewCell {
-    private func makeConstraints() {
+    private func SetConstraints() {
 
         NSLayoutConstraint.activate([
             image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),

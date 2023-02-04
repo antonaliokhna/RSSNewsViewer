@@ -40,7 +40,7 @@ final class XMLDataFetcher: NSObject, DataFetcherType {
 
         let formatter: DateFormatter = {
             let formatter = DateFormatter()
-            formatter.dateFormat = "EEE, dd MMM YYYY HH:mm:ss"
+            formatter.dateFormat = "EEE, dd MMM YYYY HH:mm:ss +hhss"
             return formatter
         }()
         decoder.dateDecodingStrategy = .formatted(formatter)

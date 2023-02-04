@@ -55,6 +55,7 @@ extension NewsViewModel {
             self.image = image
 
             DispatchQueue.main.async {
+                print("a")
                 self.reloable?.reloadData()
             }
 

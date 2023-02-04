@@ -21,8 +21,7 @@ final class NewsListViewModel {
         }
     }
 
-    func getCellViewModel(at indexPath: IndexPath) -> NewsViewModel {
-        print(newsViewModels.count)
+    func getNewsViewModel(at indexPath: IndexPath) -> NewsViewModel {
         let news = newsViewModels[indexPath.row]
 
         return news
@@ -33,19 +32,26 @@ final class NewsListViewModel {
 extension NewsListViewModel {
     func loadNewsData() async {
 
-        print("dsa")
         do {
             let model = try await self.networkService.fetchRssNews()
-            //print("dsa")
 
-            let newModels = model.channel.item.map { model in
-                NewsViewModel(newsModel: model)
+            var tempViewModels: [NewsViewModel] = []
+            model.channel.item.forEach { newsModel in
+                if !newsViewModels.contains(where: { newsViewModel in
+                    newsViewModel.title == newsModel.title
+                }) {
+                    tempViewModels.append(NewsViewModel(newsModel: newsModel))
+                    //newsViewModels.insert(NewsViewModel(newsModel: newsModel), at: 0)
+                }
             }
 
-            //let aboba =
+            tempViewModels.append(contentsOf: newsViewModels)
 
-            self.newsViewModels = newModels
-            self.status = .sucsess
+            newsViewModels = tempViewModels
+            DispatchQueue.main.async {
+                self.reloable?.reloadData()
+            }
+            //self.status = .sucsess
 
         } catch {
             print(error.localizedDescription)

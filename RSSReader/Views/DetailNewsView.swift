@@ -24,7 +24,6 @@ struct DetailNewsView: View {
         .ignoresSafeArea()
         .navigationTitle(viewModel.category)
         .navigationBarTitleDisplayMode(.inline)
-        .background(BackroundGradientView())
     }
 
     private var paralaxImage: some View {
@@ -109,44 +108,3 @@ struct DetailNewsView: View {
 //        NewsViewController()
 //    }
 //}
-
-enum ColorTheme {
-    static let dark = [
-        Color(red: 0/255, green: 130/255, blue: 160/255, opacity: 0.5),
-        Color(red: 140/255, green: 0/255, blue: 160/255, opacity: 0.5),
-    ]
-    static let light = [
-        Color(red: 0/255, green: 230/255, blue: 255/255, opacity: 0.6),
-        Color(red: 255/255, green: 130/255, blue: 200/255, opacity: 0.6),
-    ]
-}
-
-struct BackroundGradientView: View {
-    @Environment(\.colorScheme) private var colorScheme: ColorScheme
-
-    var body: some View {
-        let cutomColorScheme =
-            colorScheme == .dark
-                ? ColorTheme.dark
-                : ColorTheme.light
-
-        let gradient = Gradient(colors: cutomColorScheme)
-        let linearGradient = LinearGradient(
-            gradient: gradient,
-            startPoint: .top,
-            endPoint: .bottom
-        )
-
-        let background = Rectangle()
-            .fill(linearGradient)
-            .edgesIgnoringSafeArea(.all)
-
-        return background
-    }
-}
-
-struct BackroundGradientView_Previews: PreviewProvider {
-    static var previews: some View {
-        BackroundGradientView()
-    }
-}
