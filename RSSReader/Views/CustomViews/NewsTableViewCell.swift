@@ -10,7 +10,7 @@ import UIKit
 
 final class NewsTableViewCell: UITableViewCell {
 
-    let image: UIImageView = {
+    private let image: UIImageView = {
         let image = UIImageView(image: UIImage(named: "img"))
         image.translatesAutoresizingMaskIntoConstraints = false
         image.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
@@ -20,7 +20,7 @@ final class NewsTableViewCell: UITableViewCell {
         return image
     }()
 
-    let title: UILabel = {
+    private let title: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +28,7 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12)
         label.numberOfLines = 2
@@ -37,7 +37,7 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    let dateCreate: UILabel = {
+    private let dateCreate: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    let viewedCheckbox: UILabel = {
+    private let viewedCheckbox: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +53,18 @@ final class NewsTableViewCell: UITableViewCell {
         label.text = "Sucsess"
         return label
     }()
+
+    var cellViewModel: NewsCellViewModel? {
+        didSet {
+            guard let cellViewModel = cellViewModel else { return }
+            setValueBy(viewModel: cellViewModel)
+        }
+    }
+
+    private func setValueBy(viewModel: NewsCellViewModel) {
+        title.text = viewModel.title
+        dateCreate.text = viewModel.pubDate
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

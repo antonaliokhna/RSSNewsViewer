@@ -20,9 +20,15 @@ final class NewsViewModel {
         }
     }
 
-//    func getCellViewModel(at indexPath: IndexPath) -> RssModel.NewsModel {
-//        return newsModels[indexPath.row]
-//    }
+    func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel {
+        let news = newsModels[indexPath.row]
+       
+        return NewsCellViewModel(
+            imageURL: news.enclosure?.url,
+            title: news.title,
+            pubDate: news.pubDate
+        )
+    }
 }
 
 //final class NewsCellViewModel {

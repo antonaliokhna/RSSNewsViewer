@@ -107,11 +107,10 @@ extension NewsViewController: UITableViewDataSource {
             for: indexPath
         ) as? NewsTableViewCell else { return UITableViewCell() }
 
-        let item = viewModel.newsModels[indexPath.row]
-        cell.title.text = item.title
-        cell.descriptionLabel.text = item.description
-        cell.dateCreate.text = "12-17-2021"
 
+        let cellViewModel = viewModel.getCellViewModel(at: indexPath)
+        cell.cellViewModel = cellViewModel
+        
         return cell
     }
 
