@@ -43,7 +43,7 @@ final class NewsViewController: UIViewController {
         viewModel.reloable = self
 
         setUpViews()
-        setConstraints()
+        makeConstraints()
         setTableviewDelegateAndDataSourse()
 
         Task {
@@ -117,7 +117,7 @@ extension NewsViewController: UITableViewDataSource {
 
 // MARK: setConstraints
 extension NewsViewController {
-    private func setConstraints() {
+    private func makeConstraints() {
         newsTableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
