@@ -23,5 +23,6 @@ final class NewsTableView: UITableView {
 
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
+        rowHeight = 96
     }
 }

@@ -8,6 +8,7 @@
 import SnapKit
 import SwiftUI
 import UIKit
+import SkeletonView
 
 final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = .init(
@@ -30,6 +31,7 @@ final class NewsViewController: UIViewController {
         setViewModelDelegate()
 
         loadViewModelData()
+        startSkeletonAnimation()
     }
 
     private func loadViewModelData() {
@@ -44,6 +46,21 @@ final class NewsViewController: UIViewController {
 extension NewsViewController: Reloadable {
     func reloadData() {
         newsTableView.reloadData()
+        stopSkeletonAnimation()
+    }
+}
+
+// MARK: SkeletonAnimation
+
+extension NewsViewController {
+    private func startSkeletonAnimation() {
+        newsTableView.isSkeletonable = true
+        newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .lightGray), animated: true, delay: .zero, transition: .crossDissolve(0.25))
+    }
+
+    private func stopSkeletonAnimation() {
+        newsTableView.stopSkeletonAnimation()
+        view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
     }
 }
 
@@ -67,13 +84,6 @@ extension NewsViewController: UITableViewDelegate {
 
     func tableView(
         _ tableView: UITableView,
-        heightForRowAt indexPath: IndexPath
-    ) -> CGFloat {
-        return 100
-    }
-
-    func tableView(
-        _ tableView: UITableView,
         willDisplay cell: UITableViewCell,
         forRowAt indexPath: IndexPath
     ) {
@@ -90,9 +100,13 @@ extension NewsViewController: UITableViewDelegate {
     }
 }
 
-// MARK: UITableViewDataSource
+// MARK: SkeletonTableViewDataSource(UITableViewDataSource)
 
-extension NewsViewController: UITableViewDataSource {
+extension NewsViewController: SkeletonTableViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "newsCell"
+    }
+
     func tableView(
         _ tableView: UITableView,
         numberOfRowsInSection section: Int
