@@ -78,8 +78,9 @@ extension NewsViewController: UITableViewDelegate {
             animated: true
         )
 
-        viewModel.viewed = true
+        viewModel.setViewed()
         viewModel.reloable?.reloadData()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -114,7 +115,7 @@ extension NewsViewController: UITableViewDataSource {
 
         let viewModel = viewModel.getNewsViewModel(at: indexPath)
         cell.setViewModel(viewModel: viewModel)
-        
+
         return cell
     }
 }

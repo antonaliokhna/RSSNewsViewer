@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-final class AlamofireNetworkService: ServiceType {
+final class AlamofireNetworkService: DataFetcherServiceType {
 
     typealias ServiceType = Session
     let service: ServiceType = {

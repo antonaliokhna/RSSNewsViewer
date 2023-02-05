@@ -10,6 +10,9 @@ import UIKit
 
 final class NewsViewModel: ObservableObject {
     private let networkService: NetworkDataService = NetworkDataService()
+    private let localService: LocalDataService = LocalDataService()
+    let newsModel: NewsModel
+
     var reloable: Reloadable?
 
     var author: String
@@ -26,6 +29,8 @@ final class NewsViewModel: ObservableObject {
     var viewed: Bool
 
     init(newsModel: NewsModel) {
+        self.newsModel = newsModel
+
         self.author = newsModel.author
         self.title = newsModel.title
         self.description = newsModel.description
@@ -37,7 +42,34 @@ final class NewsViewModel: ObservableObject {
         self.imageData = newsModel.imageData
         self.viewed = newsModel.viewed ?? false
 
-        self.image = UIImage(named: "img")!
+        if let imageData = imageData {
+            self.image = UIImage(data: imageData)!
+        } else {
+            self.image = UIImage(named: "img")!
+        }
+    }
+
+    func getCurrentModel() -> NewsModel {
+        print("ab")
+        return NewsModel(
+            author: self.author,
+            title: self.title,
+            link: self.link,
+            description: self.description,
+            pubDate: self.pubDate,
+            enclosure: self.newsModel.enclosure,
+            category: self.category,
+            viewed: self.viewed,
+            imageData: self.imageData
+        )
+    }
+
+    func setViewed() {
+        viewed = true
+
+        Task {
+            try await localService.rewriteNewsBy(newNewsmodel: getCurrentModel())
+        }
     }
 }
 
@@ -45,6 +77,7 @@ extension NewsViewModel {
     func loadImage() async {
         //костыль
         guard let imageURL = imageURL, imageData == nil else { return }
+        
         do {
             let imageData = try await self.networkService.fetchImageData(
                 stringURL: imageURL.absoluteString

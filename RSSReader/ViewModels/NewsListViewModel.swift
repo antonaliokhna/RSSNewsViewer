@@ -9,6 +9,8 @@ import Foundation
 
 final class NewsListViewModel {
     private let networkService: NetworkDataService = NetworkDataService()
+    private let localDataService: LocalDataService = LocalDataService()
+
     var reloable: Reloadable?
 
     private(set) var newsViewModels: [NewsViewModel] = []
@@ -28,9 +30,15 @@ final class NewsListViewModel {
     }
 }
 
-// MARK: async load functions
+// MARK: async network load functions
 extension NewsListViewModel {
     func loadNewsData() async {
+
+        if let loadedModels = try? await loadLocalNewsModelData(), newsViewModels.isEmpty {
+            self.newsViewModels = loadedModels.map { NewsViewModel(newsModel: $0) }
+            print(self.newsViewModels.count)
+        }
+
 
         do {
             let model = try await self.networkService.fetchRssNews()
@@ -41,16 +49,16 @@ extension NewsListViewModel {
                     newsViewModel.title == newsModel.title
                 }) {
                     tempViewModels.append(NewsViewModel(newsModel: newsModel))
-                    //newsViewModels.insert(NewsViewModel(newsModel: newsModel), at: 0)
                 }
             }
 
             tempViewModels.append(contentsOf: newsViewModels)
 
             newsViewModels = tempViewModels
-            DispatchQueue.main.async {
-                self.reloable?.reloadData()
-            }
+
+            try await localDataService.saveNews(
+                models: newsViewModels.map { $0.getCurrentModel() }
+            )
             //self.status = .sucsess
 
         } catch {
@@ -62,5 +70,16 @@ extension NewsListViewModel {
             }
             self.status = .failed(error: error)
         }
+
+        DispatchQueue.main.async {
+            self.reloable?.reloadData()
+        }
+    }
+}
+
+// MARK: async local load data fucntions
+extension NewsListViewModel {
+    func loadLocalNewsModelData() async throws -> [NewsModel] {
+        return try await localDataService.fetchNews()
     }
 }

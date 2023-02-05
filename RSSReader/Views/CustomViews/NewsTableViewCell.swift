@@ -73,6 +73,7 @@ final class NewsTableViewCell: UITableViewCell {
             viewedCheckbox.text = "Viewed!"
             backgroundColor = .systemGray5
         } else {
+            viewedCheckbox.text = "No"
             backgroundColor = .none
         }
 

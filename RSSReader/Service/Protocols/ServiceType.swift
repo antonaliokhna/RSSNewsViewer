@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ServiceType: DataFetcherServiceType {
+protocol ServiceType: DataFetcherServiceType, DataPusherServiceType {
     associatedtype ServiceType
     var service: ServiceType { get }
 }

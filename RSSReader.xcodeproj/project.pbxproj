@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		643A4452298F15A10045A739 /* Reloadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4451298F15A10045A739 /* Reloadable.swift */; };
 		643A4455298F18CE0045A739 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 643A4454298F18CE0045A739 /* SnapKit */; };
+		643A4457298FAED10045A739 /* DataPusher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4456298FAED10045A739 /* DataPusher.swift */; };
+		643A4459298FAF740045A739 /* DataPusherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4458298FAF740045A739 /* DataPusherType.swift */; };
+		643A445B298FAFB00045A739 /* DataPusherServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445A298FAFB00045A739 /* DataPusherServiceType.swift */; };
+		643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445C298FB0E90045A739 /* UserDetaultsService.swift */; };
+		643A445F298FB1D80045A739 /* LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445E298FB1D80045A739 /* LocalDataService.swift */; };
 		643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA825298E3FDD00CA082F /* RequestStatuses.swift */; };
 		643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA827298E6F5700CA082F /* NewsViewModel.swift */; };
 		643FA201298D312C0067910A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA200298D312C0067910A /* AppDelegate.swift */; };
@@ -41,6 +46,11 @@
 
 /* Begin PBXFileReference section */
 		643A4451298F15A10045A739 /* Reloadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reloadable.swift; sourceTree = "<group>"; };
+		643A4456298FAED10045A739 /* DataPusher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusher.swift; sourceTree = "<group>"; };
+		643A4458298FAF740045A739 /* DataPusherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusherType.swift; sourceTree = "<group>"; };
+		643A445A298FAFB00045A739 /* DataPusherServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusherServiceType.swift; sourceTree = "<group>"; };
+		643A445C298FB0E90045A739 /* UserDetaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetaultsService.swift; sourceTree = "<group>"; };
+		643A445E298FB1D80045A739 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
 		643AA825298E3FDD00CA082F /* RequestStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatuses.swift; sourceTree = "<group>"; };
 		643AA827298E6F5700CA082F /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		643FA1FD298D312C0067910A /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -184,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				643FA225298D85590067910A /* NetworkDataService.swift */,
+				643A445E298FB1D80045A739 /* LocalDataService.swift */,
 				643FA226298D85590067910A /* DataCoders */,
 				643FA228298D85590067910A /* Protocols */,
 				643FA22D298D85590067910A /* Helpers */,
@@ -197,6 +208,7 @@
 			children = (
 				643FA227298D85590067910A /* DataFetcher.swift */,
 				643FA244298D85A00067910A /* XMLDataFetcher.swift */,
+				643A4456298FAED10045A739 /* DataPusher.swift */,
 			);
 			path = DataCoders;
 			sourceTree = "<group>";
@@ -208,6 +220,8 @@
 				643FA22A298D85590067910A /* DataFetcherType.swift */,
 				643FA22B298D85590067910A /* NetworkDataServiceType.swift */,
 				643FA22C298D85590067910A /* DataFetcherServiceType.swift */,
+				643A4458298FAF740045A739 /* DataPusherType.swift */,
+				643A445A298FAFB00045A739 /* DataPusherServiceType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -236,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				643FA236298D85590067910A /* AlamofireNetworkService.swift */,
+				643A445C298FB0E90045A739 /* UserDetaultsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -342,8 +357,12 @@
 				643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */,
 				643FA245298D85A00067910A /* XMLDataFetcher.swift in Sources */,
 				643FA24B298D87170067910A /* AFError + extensions.swift in Sources */,
+				643A445B298FAFB00045A739 /* DataPusherServiceType.swift in Sources */,
+				643A445F298FB1D80045A739 /* LocalDataService.swift in Sources */,
 				643FA23D298D85590067910A /* ParametersType.swift in Sources */,
 				643FA205298D312C0067910A /* NewsViewController.swift in Sources */,
+				643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */,
+				643A4457298FAED10045A739 /* DataPusher.swift in Sources */,
 				643FA23B298D85590067910A /* NetworkDataServiceType.swift in Sources */,
 				643FA241298D85590067910A /* CustomError.swift in Sources */,
 				643FA201298D312C0067910A /* AppDelegate.swift in Sources */,
@@ -354,6 +373,7 @@
 				643A4452298F15A10045A739 /* Reloadable.swift in Sources */,
 				643FA240298D85590067910A /* CodableError.swift in Sources */,
 				643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */,
+				643A4459298FAF740045A739 /* DataPusherType.swift in Sources */,
 				643FA239298D85590067910A /* ServiceType.swift in Sources */,
 				643FA220298D839B0067910A /* NewsListViewModel.swift in Sources */,
 				643FA243298D85590067910A /* AlamofireNetworkService.swift in Sources */,
