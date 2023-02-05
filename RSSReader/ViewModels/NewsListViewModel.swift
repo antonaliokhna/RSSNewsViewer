@@ -89,7 +89,9 @@ extension NewsListViewModel {
 
     private func saveLocalNewsModelData() async {
         do {
-            try await localService.saveNews(models: newsViewModels.map { $0.newsModel })
+            try await localService.saveNews(
+                models: newsViewModels.map { $0.newsModel }
+            )
         } catch {
             // Some saving error...
         }
