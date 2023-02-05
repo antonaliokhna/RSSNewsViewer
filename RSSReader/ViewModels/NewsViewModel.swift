@@ -11,7 +11,23 @@ import UIKit
 final class NewsViewModel: ObservableObject {
     private let networkService: NetworkDataService
     private let localService: LocalDataService
-    let newsModel: NewsModel
+
+    private(set) var newsModel: NewsModel {
+        didSet {
+            viewed = newsModel.viewed ?? false
+            imageData = newsModel.imageData
+
+            Task {
+                await saveNewsModel()
+                await updateUI()
+            }
+
+        }
+    }
+
+    private(set) var viewed: Bool
+    private(set) var image: UIImage = .init(named: "no-image")!
+    private(set) var imageData: Data?
 
     var reloableDelegate: Reloadable? {
         didSet {
@@ -21,18 +37,13 @@ final class NewsViewModel: ObservableObject {
         }
     }
 
-    var author: String
-    var title: String
-    var description: String
-    var pubDate: String
-    var category: String
-    var image: UIImage
-
-    var link: URL?
-    var imageURL: URL?
-
-    var imageData: Data?
-    var viewed: Bool
+    let author: String
+    let title: String
+    let description: String
+    let pubDate: String
+    let category: String
+    let imageURL: URL
+    let link: URL
 
     init(
         networkService: NetworkDataService,
@@ -41,7 +52,6 @@ final class NewsViewModel: ObservableObject {
     ) {
         self.networkService = networkService
         self.localService = localService
-
         self.newsModel = newsModel
 
         self.author = newsModel.author
@@ -50,76 +60,60 @@ final class NewsViewModel: ObservableObject {
         self.pubDate = newsModel.pubDate.formatted()
         self.category = newsModel.category
         self.link = newsModel.link
-        self.imageURL = newsModel.enclosure?.url
+        self.imageURL = newsModel.enclosure.url
 
-        self.imageData = newsModel.imageData
         self.viewed = newsModel.viewed ?? false
 
-        if let imageData = imageData {
-            self.image = UIImage(data: imageData)!
-        } else {
-            self.image = UIImage(named: "img")!
+        if let imageData = imageData, let image = UIImage(data: imageData) {
+            self.image = image
+            self.newsModel = newsModel.updateModel(
+                imageData: imageData,
+                viewed: viewed
+            )
         }
     }
 
-    func getCurrentModel() -> NewsModel {
-        print("new NewsModel")
-        return NewsModel(
-            author: self.author,
-            title: self.title,
-            link: self.link,
-            description: self.description,
-            pubDate: newsModel.pubDate,
-            enclosure: self.newsModel.enclosure,
-            category: self.category,
-            viewed: self.viewed,
-            imageData: self.imageData
+    @MainActor
+    func setViewed(status: Bool) {
+        newsModel = newsModel.updateModel(
+            imageData: imageData,
+            viewed: status
         )
     }
 
-    func setViewed() {
-        viewed = true
-
-        Task {
-            try await localService.rewriteNewsBy(newNewsmodel: getCurrentModel())
-        }
-
+    @MainActor
+    private func updateUI() {
         reloableDelegate?.reloadData()
     }
 }
 
+// MARK: Network service functions
+
 extension NewsViewModel {
     func loadImage() async {
-        //костыль
-        guard let imageURL = imageURL, imageData == nil else { return }
-        
+        guard imageData == nil else { return }
         do {
-            let imageData = try await self.networkService.fetchImageData(
+            let imageData = try await networkService.fetchImageData(
                 stringURL: imageURL.absoluteString
             )
 
             guard let image = UIImage(data: imageData) else { return }
-            self.imageData = imageData
+            newsModel = newsModel.updateModel(imageData: imageData)
             self.image = image
-
-            DispatchQueue.main.async {
-            
-                self.reloableDelegate?.reloadData()
-            }
-
         } catch {
-//            guard let error = error as? CustomError else {
-//                self.status = .failed(error: .localError(error: .unknownError))
-//
-//                return
-//            }
-//            self.status = .failed(error: error)
+            // Some error...
         }
+    }
+}
 
-        print("dispatch")
+// MARK: local service fucntions
 
-        DispatchQueue.main.async {
-            self.reloableDelegate?.reloadData()
+extension NewsViewModel {
+    private func saveNewsModel() async {
+        do {
+            try await localService.rewriteNewsBy(newNewsmodel: newsModel)
+        } catch {
+            // Some error..
         }
     }
 }

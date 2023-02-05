@@ -19,10 +19,10 @@ struct RssModel: Codable {
 struct NewsModel: Codable {
     let author: String
     let title: String
-    let link: URL?
+    let link: URL
     let description: String
     let pubDate: Date
-    let enclosure: Enclosure?
+    let enclosure: Enclosure
     let category: String
 
     let viewed: Bool?
@@ -30,5 +30,19 @@ struct NewsModel: Codable {
 
     struct Enclosure: Codable {
         let url: URL
+    }
+
+    func updateModel(imageData: Data? = nil, viewed: Bool? = nil) -> Self {
+        return NewsModel(
+            author: self.author,
+            title: self.title,
+            link: self.link,
+            description: self.description,
+            pubDate: self.pubDate,
+            enclosure: self.enclosure,
+            category: self.category,
+            viewed: viewed ?? self.viewed,
+            imageData: imageData ?? self.imageData
+        )
     }
 }

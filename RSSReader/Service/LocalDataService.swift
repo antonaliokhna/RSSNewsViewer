@@ -27,6 +27,7 @@ final class LocalDataService {
 // MARK: LocalDataServiceType
 
 extension LocalDataService: LocalDataServiceType {
+    @discardableResult
     func saveNews(models: [NewsModel]) async throws -> Data {
         return try await dataPusher.pushGenericValue(
             url: "news",
@@ -35,6 +36,7 @@ extension LocalDataService: LocalDataServiceType {
         )
     }
 
+    @discardableResult
     func fetchNews() async throws -> [NewsModel] {
         return try await dataFetcher.fetchGenericData(
             url: "news",
@@ -42,6 +44,7 @@ extension LocalDataService: LocalDataServiceType {
         )
     }
 
+    @discardableResult
     func rewriteNewsBy(newNewsmodel: NewsModel) async throws -> Data {
         var news = try await fetchNews()
 

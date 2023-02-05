@@ -39,7 +39,7 @@ struct DetailNewsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(viewModel.category)
         .onAppear {
-            viewModel.setViewed()
+            viewModel.setViewed(status: true)
         }
     }
 
@@ -113,9 +113,8 @@ struct DetailNewsView: View {
             }
 
             Divider()
-            if let link = viewModel.link {
-                Link("Link to article", destination: link)
-            }
+
+            Link("Link to article", destination: viewModel.link)
         }
         .padding()
     }
@@ -130,10 +129,10 @@ struct DetailNewsView_Previews: PreviewProvider {
                 newsModel: NewsModel(
                     author: "Test author",
                     title: "Test empty title",
-                    link: nil,
+                    link: URL(string: "https")!,
                     description: "Description here",
                     pubDate: Date(),
-                    enclosure: nil,
+                    enclosure: .init(url: URL(string: "https")!),
                     category: "Test category",
                     viewed: false,
                     imageData: nil

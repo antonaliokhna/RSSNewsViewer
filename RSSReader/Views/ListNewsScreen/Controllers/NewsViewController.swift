@@ -30,8 +30,8 @@ final class NewsViewController: UIViewController {
         setTableViewRefrechControl()
         setViewModelDelegate()
 
-        loadViewModelData()
         startSkeletonAnimation()
+        loadViewModelData()
     }
 
     private func loadViewModelData() {
@@ -55,12 +55,20 @@ extension NewsViewController: Reloadable {
 extension NewsViewController {
     private func startSkeletonAnimation() {
         newsTableView.isSkeletonable = true
-        newsTableView.showGradientSkeleton(usingGradient: .init(baseColor: .lightGray), animated: true, delay: .zero, transition: .crossDissolve(0.25))
+        newsTableView.showGradientSkeleton(
+            usingGradient: .init(baseColor: .lightGray),
+            animated: true,
+            delay: .zero,
+            transition: .crossDissolve(0.25)
+        )
     }
 
     private func stopSkeletonAnimation() {
         newsTableView.stopSkeletonAnimation()
-        view.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+        view.hideSkeleton(
+            reloadDataAfter: true,
+            transition: .crossDissolve(0.25)
+        )
     }
 }
 
@@ -103,7 +111,10 @@ extension NewsViewController: UITableViewDelegate {
 // MARK: SkeletonTableViewDataSource(UITableViewDataSource)
 
 extension NewsViewController: SkeletonTableViewDataSource {
-    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+    func collectionSkeletonView(
+        _ skeletonView: UITableView,
+        cellIdentifierForRowAt indexPath: IndexPath
+    ) -> ReusableCellIdentifier {
         return "newsCell"
     }
 
@@ -163,7 +174,7 @@ extension NewsViewController {
     }
 
     private func setViewModelDelegate() {
-        viewModel.reloable = self
+        viewModel.reloableDelegate = self
     }
 }
 
