@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+private struct Constants {
+    static let rowHeight: CGFloat = 96
+}
+
 final class NewsTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -25,6 +29,6 @@ final class NewsTableView: UITableView {
 
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        rowHeight = 96
+        rowHeight = Constants.rowHeight
     }
 }

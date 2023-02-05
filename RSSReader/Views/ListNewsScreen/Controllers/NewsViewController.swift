@@ -5,10 +5,22 @@
 //  Created by Anton Aliokhna on 2/3/23.
 //
 
+import SkeletonView
 import SnapKit
 import SwiftUI
 import UIKit
-import SkeletonView
+
+private struct Constants {
+    struct Cell {
+        static let startAlpha: CGFloat = 0.1
+        static let endAlpha: CGFloat = 1
+        static let animationDuration: CGFloat = 0.3
+    }
+    static let skeletonCrossDissolve: CGFloat = 0.25
+    static let cellTransform = CATransform3DTranslate(
+        CATransform3DIdentity, 0, -50, 0
+    )
+}
 
 final class NewsViewController: UIViewController {
     private let newsTableView: NewsTableView = .init(
@@ -21,7 +33,7 @@ final class NewsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         title = "News"
 
         setUpViews()
@@ -71,7 +83,7 @@ extension NewsViewController {
             usingGradient: .init(baseColor: .lightGray),
             animated: true,
             delay: .zero,
-            transition: .crossDissolve(0.25)
+            transition: .crossDissolve(Constants.skeletonCrossDissolve)
         )
     }
 
@@ -79,7 +91,7 @@ extension NewsViewController {
         newsTableView.stopSkeletonAnimation()
         view.hideSkeleton(
             reloadDataAfter: true,
-            transition: .crossDissolve(0.25)
+            transition: .crossDissolve(Constants.skeletonCrossDissolve)
         )
     }
 }
@@ -107,15 +119,14 @@ extension NewsViewController: UITableViewDelegate {
         willDisplay cell: UITableViewCell,
         forRowAt indexPath: IndexPath
     ) {
-        let transform
-            = CATransform3DTranslate(CATransform3DIdentity, 0, -50, 0)
+        let transform = Constants.cellTransform
 
         cell.layer.transform = transform
-        cell.alpha = 0.1
+        cell.alpha = Constants.Cell.startAlpha
 
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: Constants.Cell.animationDuration) {
             cell.layer.transform = CATransform3DIdentity
-            cell.alpha = 1
+            cell.alpha = Constants.Cell.endAlpha
         }
     }
 }

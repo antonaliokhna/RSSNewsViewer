@@ -8,6 +8,39 @@
 import Foundation
 import UIKit
 
+private struct Constants {
+    static let viewed: String = "Viewed"
+    static let unviewed: String = "Unviewed"
+    static let viewedBackroundColor: UIColor = .systemGray5
+
+    struct Subview {
+        static let cornerRadius: CGFloat = 16
+        static let titleSize: CGFloat = 16
+        static let subTitleSize: CGFloat = 14
+        static let titleCountOfLines: CGFloat = 3
+        static let lineSpacing: CGFloat = 8
+        static let lineCorderRadius: Int = 8
+        static let bottomPadding: CGFloat = 8
+        static let litleLineHeight: CGFloat = 13
+        static let lastLineFill: Int = 100
+    }
+
+    struct Skeleton {
+        static let bottomPadding: CGFloat = 0
+        static let lineHeight: CGFloat = 15
+        static let lineSpacing: CGFloat = 10
+        static let lastLineFill: Int = 70
+        static let lineCornerRadius: Int = 0
+    }
+
+    struct Constraints {
+        static let contentPadding: CGFloat = 8
+        static let imageWidth: CGFloat = 96
+        static let titleLeadingPadding: CGFloat = -16
+        static let defaultSubViewsWidth: CGFloat = 128
+    }
+}
+
 final class NewsTableViewCell: UITableViewCell {
     static let identifier = "newsCell"
 
@@ -15,7 +48,7 @@ final class NewsTableViewCell: UITableViewCell {
         let image = UIImageView(image: nil)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.masksToBounds = true
-        image.layer.cornerRadius = 16
+        image.layer.cornerRadius = Constants.Subview.cornerRadius
         image.isSkeletonable = true
 
         return image
@@ -24,10 +57,17 @@ final class NewsTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = .systemFont(ofSize: 16, weight: .bold)
-        title.numberOfLines = 3
+        title.numberOfLines = Constants.Subview.lineCorderRadius
+        title.font = .systemFont(
+            ofSize: Constants.Subview.titleSize,
+            weight: .bold
+        )
 
-        skeletonConfig(view: title, lineSpacing: 8, lineCornerRadius: 8)
+        skeletonConfig(
+            view: title,
+            lineSpacing: Constants.Subview.lineSpacing,
+            lineCornerRadius: Constants.Subview.lineCorderRadius
+        )
         title.isSkeletonable = true
 
         return title
@@ -36,14 +76,17 @@ final class NewsTableViewCell: UITableViewCell {
     private let datePubLabel: UILabel = {
         let date = UILabel()
         date.translatesAutoresizingMaskIntoConstraints = false
-        date.font = .systemFont(ofSize: 14, weight: .light)
+        date.font = .systemFont(
+            ofSize: Constants.Subview.subTitleSize,
+            weight: .light
+        )
 
         skeletonConfig(
             view: date,
-            bottomPadding: 8,
-            lineHeight: 13,
-            lastLineFill: 100,
-            lineCornerRadius: 8
+            bottomPadding: Constants.Subview.bottomPadding,
+            lineHeight: Constants.Subview.litleLineHeight,
+            lastLineFill: Constants.Subview.lastLineFill,
+            lineCornerRadius: Constants.Subview.lineCorderRadius
         )
         date.isSkeletonable = true
 
@@ -53,13 +96,16 @@ final class NewsTableViewCell: UITableViewCell {
     private let viewedLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .light)
+        label.font = .systemFont(
+            ofSize: Constants.Subview.subTitleSize,
+            weight: .light
+        )
 
         skeletonConfig(
             view: label,
-            bottomPadding: 8,
-            lineHeight: 13,
-            lineCornerRadius: 8
+            bottomPadding: Constants.Subview.bottomPadding,
+            lineHeight: Constants.Subview.litleLineHeight,
+            lineCornerRadius: Constants.Subview.lineCorderRadius
         )
         label.isSkeletonable = true
 
@@ -103,10 +149,10 @@ extension NewsTableViewCell {
 
     private func setViewedStyle(viewed: Bool) {
         if viewed {
-            viewedLabel.text = "Viewed"
-            backgroundColor = .systemGray5
+            viewedLabel.text = Constants.viewed
+            backgroundColor = Constants.viewedBackroundColor
         } else {
-            viewedLabel.text = "Unviewed"
+            viewedLabel.text = Constants.unviewed
             backgroundColor = .none
         }
     }
@@ -126,11 +172,11 @@ extension NewsTableViewCell: Reloadable {
 extension NewsTableViewCell {
     private static func skeletonConfig(
         view: UILabel,
-        bottomPadding: CGFloat = 0,
-        lineHeight: CGFloat = 15,
-        lineSpacing: CGFloat = 10,
-        lastLineFill: Int = 70,
-        lineCornerRadius: Int = 0
+        bottomPadding: CGFloat = Constants.Skeleton.bottomPadding,
+        lineHeight: CGFloat = Constants.Skeleton.lineHeight,
+        lineSpacing: CGFloat = Constants.Skeleton.lineSpacing,
+        lastLineFill: Int = Constants.Skeleton.lastLineFill,
+        lineCornerRadius: Int = Constants.Skeleton.lineCornerRadius
     ) {
         view.isSkeletonable = true
         view.skeletonPaddingInsets.bottom = bottomPadding
@@ -156,25 +202,36 @@ extension NewsTableViewCell {
 
     private func makeConstraints() {
         contentImageView.snp.makeConstraints { make in
-            make.verticalEdges.leading.equalToSuperview().inset(8)
-            make.width.equalTo(96)
+            make
+                .verticalEdges.leading
+                .equalToSuperview()
+                .inset(Constants.Constraints.contentPadding)
+
+            make.width.equalTo(Constants.Constraints.imageWidth)
         }
 
         titleLabel.snp.makeConstraints { make in
-            make.trailing.top.equalToSuperview().inset(8)
-            make.leading.equalTo(contentImageView.snp.trailing).inset(-16)
+            make
+                .trailing.top
+                .equalToSuperview()
+                .inset(Constants.Constraints.contentPadding)
+
+            make
+                .leading
+                .equalTo(contentImageView.snp.trailing)
+                .inset(Constants.Constraints.titleLeadingPadding)
         }
 
         viewedLabel.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel)
             make.bottom.equalTo(contentImageView)
-            make.width.equalTo(128)
+            make.width.equalTo(Constants.Constraints.defaultSubViewsWidth)
         }
 
         datePubLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().inset(8)
             make.bottom.equalTo(contentImageView)
-            make.width.equalTo(128)
+            make.width.equalTo(Constants.Constraints.defaultSubViewsWidth)
         }
     }
 }
