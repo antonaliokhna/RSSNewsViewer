@@ -13,7 +13,8 @@ enum CodableError: Error {
     case dataIsEmpty
 }
 
-//MARK: LocalizedError
+// MARK: LocalizedError
+
 extension CodableError: LocalizedError {
     var errorDescription: String? {
         var description: String

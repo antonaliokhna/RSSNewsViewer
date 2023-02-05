@@ -8,5 +8,6 @@
 import Foundation
 
 protocol NetworkDataServiceType {
-   func fetchRssNews() async throws -> RssModel
+    func fetchRssNews() async throws -> RssModel
+    func fetchImageData(stringURL: String) async throws -> Data
 }

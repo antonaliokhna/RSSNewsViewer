@@ -15,7 +15,7 @@ final class UserDetaultsService: ServiceType {
         whereTo url: String,
         data: Data,
         parameters: Parameters
-    ) async throws -> Data  {
+    ) async throws -> Data {
         service.set(data, forKey: url)
 
         return data
@@ -27,5 +27,4 @@ final class UserDetaultsService: ServiceType {
     ) async throws -> Data? {
         return service.data(forKey: url)
     }
-
 }

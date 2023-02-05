@@ -15,6 +15,7 @@
 		643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445C298FB0E90045A739 /* UserDetaultsService.swift */; };
 		643A445F298FB1D80045A739 /* LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445E298FB1D80045A739 /* LocalDataService.swift */; };
 		643A4462298FD7CF0045A739 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 643A4461298FD7CF0045A739 /* XMLCoder */; };
+		643A4467299015E10045A739 /* LocalDataServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4466299015E10045A739 /* LocalDataServiceType.swift */; };
 		643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA825298E3FDD00CA082F /* RequestStatuses.swift */; };
 		643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA827298E6F5700CA082F /* NewsViewModel.swift */; };
 		643FA201298D312C0067910A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA200298D312C0067910A /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		643A445A298FAFB00045A739 /* DataPusherServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPusherServiceType.swift; sourceTree = "<group>"; };
 		643A445C298FB0E90045A739 /* UserDetaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetaultsService.swift; sourceTree = "<group>"; };
 		643A445E298FB1D80045A739 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
+		643A4466299015E10045A739 /* LocalDataServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataServiceType.swift; sourceTree = "<group>"; };
 		643AA825298E3FDD00CA082F /* RequestStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatuses.swift; sourceTree = "<group>"; };
 		643AA827298E6F5700CA082F /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		643FA1FD298D312C0067910A /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,33 @@
 				643A4451298F15A10045A739 /* Reloadable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		643A4463299015740045A739 /* DataPusher */ = {
+			isa = PBXGroup;
+			children = (
+				643A4458298FAF740045A739 /* DataPusherType.swift */,
+				643A445A298FAFB00045A739 /* DataPusherServiceType.swift */,
+			);
+			path = DataPusher;
+			sourceTree = "<group>";
+		};
+		643A4464299015960045A739 /* DataFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				643FA22A298D85590067910A /* DataFetcherType.swift */,
+				643FA22C298D85590067910A /* DataFetcherServiceType.swift */,
+			);
+			path = DataFetcher;
+			sourceTree = "<group>";
+		};
+		643A4465299015C30045A739 /* DataServiceType */ = {
+			isa = PBXGroup;
+			children = (
+				643A4466299015E10045A739 /* LocalDataServiceType.swift */,
+				643FA22B298D85590067910A /* NetworkDataServiceType.swift */,
+			);
+			path = DataServiceType;
 			sourceTree = "<group>";
 		};
 		643AA824298E3FD500CA082F /* Helper */ = {
@@ -208,9 +237,9 @@
 		643FA226298D85590067910A /* DataCoders */ = {
 			isa = PBXGroup;
 			children = (
+				643A4456298FAED10045A739 /* DataPusher.swift */,
 				643FA227298D85590067910A /* DataFetcher.swift */,
 				643FA244298D85A00067910A /* XMLDataFetcher.swift */,
-				643A4456298FAED10045A739 /* DataPusher.swift */,
 			);
 			path = DataCoders;
 			sourceTree = "<group>";
@@ -219,11 +248,9 @@
 			isa = PBXGroup;
 			children = (
 				643FA229298D85590067910A /* ServiceType.swift */,
-				643FA22A298D85590067910A /* DataFetcherType.swift */,
-				643FA22B298D85590067910A /* NetworkDataServiceType.swift */,
-				643FA22C298D85590067910A /* DataFetcherServiceType.swift */,
-				643A4458298FAF740045A739 /* DataPusherType.swift */,
-				643A445A298FAFB00045A739 /* DataPusherServiceType.swift */,
+				643A4464299015960045A739 /* DataFetcher */,
+				643A4463299015740045A739 /* DataPusher */,
+				643A4465299015C30045A739 /* DataServiceType */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -367,6 +394,7 @@
 				643FA205298D312C0067910A /* NewsViewController.swift in Sources */,
 				643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */,
 				643A4457298FAED10045A739 /* DataPusher.swift in Sources */,
+				643A4467299015E10045A739 /* LocalDataServiceType.swift in Sources */,
 				643FA23B298D85590067910A /* NetworkDataServiceType.swift in Sources */,
 				643FA241298D85590067910A /* CustomError.swift in Sources */,
 				643FA201298D312C0067910A /* AppDelegate.swift in Sources */,

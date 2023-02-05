@@ -8,7 +8,6 @@
 import Foundation
 
 final class LocalDataService {
-
     private let dataFetcher: DataFetcherType
     private let dataPusher: DataPusherType
 
@@ -25,8 +24,9 @@ final class LocalDataService {
     }
 }
 
+// MARK: LocalDataServiceType
 
-extension LocalDataService {
+extension LocalDataService: LocalDataServiceType {
     func saveNews(models: [NewsModel]) async throws -> Data {
         return try await dataPusher.pushGenericValue(
             url: "news",

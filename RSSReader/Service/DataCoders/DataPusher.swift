@@ -8,7 +8,6 @@
 import Foundation
 
 final class DataPusher: DataPusherType {
-
     private let service: DataPusherServiceType
 
     init(service: DataPusherServiceType) {

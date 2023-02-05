@@ -19,7 +19,6 @@ final class XMLDataFetcher: NSObject, DataFetcherType {
         url: String,
         parameters: Parameters
     ) async throws -> T {
-
         let data = try await service.fetch(
             from: url,
             parameters: parameters

@@ -8,7 +8,6 @@
 import Foundation
 
 final class DataFetcher: DataFetcherType {
-
     private let service: DataFetcherServiceType
 
     init(service: DataFetcherServiceType) {
@@ -19,7 +18,6 @@ final class DataFetcher: DataFetcherType {
         url: String,
         parameters: Parameters
     ) async throws -> T {
-
         let data = try await service.fetch(
             from: url,
             parameters: parameters
@@ -37,7 +35,7 @@ final class DataFetcher: DataFetcherType {
         }
 
         if let object = data as? T {
-           return object
+            return object
         }
 
         let decoder = JSONDecoder()

@@ -5,11 +5,10 @@
 //  Created by Anton Aliokhna on 1/25/23.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 
 final class AlamofireNetworkService: DataFetcherServiceType {
-
     typealias ServiceType = Session
     let service: ServiceType = {
         let configuration = AF.sessionConfiguration
