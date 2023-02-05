@@ -9,9 +9,8 @@ import Foundation
 import UIKit
 
 final class NewsTableViewCell: UITableViewCell {
-
-    private let image: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "img"))
+    private let contentImageView: UIImageView = {
+        let image = UIImageView(image: nil)
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 16
@@ -19,16 +18,24 @@ final class NewsTableViewCell: UITableViewCell {
         return image
     }()
 
-    private let title: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.numberOfLines = 3
+    private let titleLabel: UILabel = {
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.font = .systemFont(ofSize: 16, weight: .bold)
+        title.numberOfLines = 3
 
-        return label
+        return title
     }()
 
-    private let dateCreate: UILabel = {
+    private let datePubLabel: UILabel = {
+        let date = UILabel()
+        date.translatesAutoresizingMaskIntoConstraints = false
+        date.font = .systemFont(ofSize: 14, weight: .light)
+
+        return date
+    }()
+
+    private let viewedLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .light)
@@ -36,56 +43,10 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let viewedCheckbox: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .light)
-
-        label.text = "Unviewed"
-        return label
-    }()
-
-    weak var viewModel: NewsViewModel?
-
-
-    var cellViewModel: NewsViewModel? {
+    private weak var viewModel: NewsViewModel? {
         didSet {
-            //print("das")
-//            Task {
-//               try? await cellViewModel?.loadImage()
-//            }
-            //guard let cellViewModel = cellViewModel else { return }
-            //cellViewModel.reloable = self
-            //setViewModel(viewModel: cellViewModel)
-        }
-    }
-
-    func setViewModel(viewModel: NewsViewModel) {
-        viewModel.reloable = self
-        self.viewModel = viewModel
-        loadImageFromViewModel()
-
-        image.image = viewModel.image
-        title.text = viewModel.title
-        print(viewModel.pubDate)
-        //print(viewModel.pubDate.formatted())
-        dateCreate.text = viewModel.pubDate.formatted()
-
-        if viewModel.viewed {
-            viewedCheckbox.text = "Viewed"
-            //viewedCheckbox.backgroundColor = .gray
-            backgroundColor = .systemGray5
-        } else {
-            viewedCheckbox.text = "Unviewed"
-
-            backgroundColor = .none
-        }
-
-    }
-
-    private func loadImageFromViewModel() {
-        Task {
-           await viewModel?.loadImage()
+            viewModel?.reloableDelegate = self
+            reloadData()
         }
     }
 
@@ -100,44 +61,72 @@ final class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setUpViews() {
-        addSubview(image)
-        addSubview(title)
-        addSubview(dateCreate)
-        addSubview(viewedCheckbox)
+    func setViewModel(viewModel: NewsViewModel) {
+        self.viewModel = viewModel
+    }
+
+}
+
+// MARK: private updated view functions
+
+extension NewsTableViewCell {
+    private func updateContent(viewModel: NewsViewModel) {
+        contentImageView.image = viewModel.image
+        titleLabel.text = viewModel.title
+        datePubLabel.text = viewModel.pubDate
+
+        setViewedStyle(viewed: viewModel.viewed)
+    }
+
+    private func setViewedStyle(viewed: Bool) {
+        if viewed {
+            viewedLabel.text = "Viewed"
+            backgroundColor = .systemGray5
+        } else {
+            viewedLabel.text = "Unviewed"
+            backgroundColor = .none
+        }
     }
 }
 
-//MARK: Reloadable
+// MARK: Reloadable
+
 extension NewsTableViewCell: Reloadable {
     func reloadData() {
         guard let viewModel = viewModel else { return }
-        setViewModel(viewModel: viewModel)
+        updateContent(viewModel: viewModel)
     }
 }
 
-//MARK: makeConstraints
+// MARK: setupView
+
 extension NewsTableViewCell {
     private func makeConstraints() {
-        image.snp.makeConstraints { make in
+        contentImageView.snp.makeConstraints { make in
             make.verticalEdges.leading.equalToSuperview().inset(8)
             make.width.equalTo(96)
         }
 
-        title.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
             make.trailing.top.equalToSuperview().inset(8)
-            make.leading.equalTo(image.snp.trailing).inset(-16)
+            make.leading.equalTo(contentImageView.snp.trailing).inset(-16)
         }
 
-        viewedCheckbox.snp.makeConstraints { make in
-            make.leading.equalTo(title)
-            make.bottom.equalTo(image)
+        viewedLabel.snp.makeConstraints { make in
+            make.leading.equalTo(titleLabel)
+            make.bottom.equalTo(contentImageView)
         }
 
-        dateCreate.snp.makeConstraints { make in
-            make.trailing.equalTo(title)
-            make.bottom.equalTo(image)
+        datePubLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(titleLabel)
+            make.bottom.equalTo(contentImageView)
         }
     }
-}
 
+    private func setUpViews() {
+        addSubview(contentImageView)
+        addSubview(titleLabel)
+        addSubview(datePubLabel)
+        addSubview(viewedLabel)
+    }
+}

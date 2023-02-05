@@ -7,9 +7,23 @@
 
 import SwiftUI
 
+private struct Constants {
+    static let contentCornerRadius: CGFloat = 16
+    static let contentOffset: CGFloat = -24
+    static let imageHeight: CGFloat
+        = UIScreen.main.bounds.height / 1.8
+}
+
+private struct ContentConstants {
+    static let rectangleWidht: CGFloat = 48
+    static let rectangleHeight: CGFloat = 4
+    static let rectangleCornerRadius: CGFloat = 24
+    static let defaultSpacing: CGFloat = 8
+}
+
 struct DetailNewsView: View {
     @ObservedObject var viewModel: NewsViewModel
-    
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             paralaxImage
@@ -18,12 +32,15 @@ struct DetailNewsView: View {
                 contentView
             }
             .background(.bar)
-            .cornerRadius(16)
-            .offset(y: -45)
+            .cornerRadius(Constants.contentCornerRadius)
+            .offset(y: Constants.contentOffset)
         }
         .ignoresSafeArea()
-        .navigationTitle(viewModel.category)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(viewModel.category)
+        .onAppear {
+            viewModel.setViewed()
+        }
     }
 
     private var paralaxImage: some View {
@@ -39,15 +56,18 @@ struct DetailNewsView: View {
                     height: frame.maxY
                 )
         }
-        .frame(height: UIScreen.main.bounds.height/2)
+        .frame(height: Constants.imageHeight)
     }
 
     private var contentView: some View {
         VStack {
             VStack(alignment: .leading) {
                 Rectangle()
-                    .frame(width: 48, height: 4)
-                    .cornerRadius(24)
+                    .frame(
+                        width: ContentConstants.rectangleWidht,
+                        height: ContentConstants.rectangleHeight
+                    )
+                    .cornerRadius(ContentConstants.rectangleCornerRadius)
                     .frame(maxWidth: .infinity)
 
                 Text(viewModel.title)
@@ -56,7 +76,6 @@ struct DetailNewsView: View {
             }
 
             Divider()
-
             HStack {
                 VStack(alignment: .leading) {
                     Text("Autor:")
@@ -69,7 +88,6 @@ struct DetailNewsView: View {
                 }
 
                 Spacer()
-
                 VStack(alignment: .leading) {
                     Text("Publication:")
                         .font(.subheadline)
@@ -82,8 +100,10 @@ struct DetailNewsView: View {
             }
 
             Divider()
-
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(
+                alignment: .leading,
+                spacing: ContentConstants.defaultSpacing
+            ) {
                 Text("Description:")
                     .fontWeight(.light)
 
@@ -93,7 +113,6 @@ struct DetailNewsView: View {
             }
 
             Divider()
-
             if let link = viewModel.link {
                 Link("Link to article", destination: link)
             }
@@ -102,9 +121,24 @@ struct DetailNewsView: View {
     }
 }
 
-
-//struct DetailNewsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewsViewController()
-//    }
-//}
+struct DetailNewsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailNewsView(
+            viewModel: NewsViewModel(
+                networkService: NetworkDataService(),
+                localService: LocalDataService(),
+                newsModel: NewsModel(
+                    author: "Test author",
+                    title: "Test empty title",
+                    link: nil,
+                    description: "Description here",
+                    pubDate: Date(),
+                    enclosure: nil,
+                    category: "Test category",
+                    viewed: false,
+                    imageData: nil
+                )
+            )
+        )
+    }
+}

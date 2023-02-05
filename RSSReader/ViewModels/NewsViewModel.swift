@@ -13,12 +13,18 @@ final class NewsViewModel: ObservableObject {
     private let localService: LocalDataService
     let newsModel: NewsModel
 
-    var reloable: Reloadable?
+    var reloableDelegate: Reloadable? {
+        didSet {
+            Task {
+                await self.loadImage()
+            }
+        }
+    }
 
     var author: String
     var title: String
     var description: String
-    var pubDate: Date
+    var pubDate: String
     var category: String
     var image: UIImage
 
@@ -41,7 +47,7 @@ final class NewsViewModel: ObservableObject {
         self.author = newsModel.author
         self.title = newsModel.title
         self.description = newsModel.description
-        self.pubDate = newsModel.pubDate
+        self.pubDate = newsModel.pubDate.formatted()
         self.category = newsModel.category
         self.link = newsModel.link
         self.imageURL = newsModel.enclosure?.url
@@ -57,13 +63,13 @@ final class NewsViewModel: ObservableObject {
     }
 
     func getCurrentModel() -> NewsModel {
-        print("ab")
+        print("new NewsModel")
         return NewsModel(
             author: self.author,
             title: self.title,
             link: self.link,
             description: self.description,
-            pubDate: self.pubDate,
+            pubDate: newsModel.pubDate,
             enclosure: self.newsModel.enclosure,
             category: self.category,
             viewed: self.viewed,
@@ -77,6 +83,8 @@ final class NewsViewModel: ObservableObject {
         Task {
             try await localService.rewriteNewsBy(newNewsmodel: getCurrentModel())
         }
+
+        reloableDelegate?.reloadData()
     }
 }
 
@@ -96,7 +104,7 @@ extension NewsViewModel {
 
             DispatchQueue.main.async {
             
-                self.reloable?.reloadData()
+                self.reloableDelegate?.reloadData()
             }
 
         } catch {
@@ -106,6 +114,12 @@ extension NewsViewModel {
 //                return
 //            }
 //            self.status = .failed(error: error)
+        }
+
+        print("dispatch")
+
+        DispatchQueue.main.async {
+            self.reloableDelegate?.reloadData()
         }
     }
 }
