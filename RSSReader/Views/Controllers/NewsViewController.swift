@@ -15,17 +15,9 @@ final class NewsViewController: UIViewController {
         frame: .zero,
         style: .plain
     )
-
-    private let viewModel: NewsListViewModel = NewsListViewModel()
-
     private let refreshControl = UIRefreshControl()
 
-    @objc private func refresh(_ sender: AnyObject) {
-        Task {
-            try? await viewModel.loadNewsData()
-            refreshControl.endRefreshing()
-        }
-    }
+    private let viewModel: NewsListViewModel = NewsListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +31,6 @@ final class NewsViewController: UIViewController {
         )
 
         newsTableView.refreshControl = refreshControl
-
         viewModel.reloable = self
 
         setUpViews()
@@ -47,7 +38,7 @@ final class NewsViewController: UIViewController {
         setTableviewDelegateAndDataSourse()
 
         Task {
-            try? await viewModel.loadNewsData()
+            await viewModel.loadNewsData()
         }
     }
 
@@ -58,6 +49,13 @@ final class NewsViewController: UIViewController {
     private func setTableviewDelegateAndDataSourse() {
         newsTableView.dataSource = self
         newsTableView.delegate = self
+    }
+
+    @objc private func refresh(_ sender: AnyObject) {
+        Task {
+            await viewModel.loadNewsData()
+            refreshControl.endRefreshing()
+        }
     }
 }
 
@@ -73,7 +71,11 @@ extension NewsViewController: UITableViewDelegate {
         let viewModel = viewModel.getNewsViewModel(at: indexPath)
         let datailNewsView = DetailNewsView(viewModel: viewModel)
         
-        navigationController?.pushViewController(UIHostingController(rootView: datailNewsView), animated: true)
+        navigationController?.pushViewController(
+            UIHostingController(rootView: datailNewsView),
+            animated: true
+        )
+
         viewModel.viewed = true
         viewModel.reloable?.reloadData()
     }
@@ -86,7 +88,7 @@ extension NewsViewController: UITableViewDelegate {
 
         let rotationTransform = CATransform3DTranslate (CATransform3DIdentity, 0, -60, 0)
         cell.layer.transform = rotationTransform
-        cell.alpha = 0.5
+        cell.alpha = 0.1
 
         UIView.animate (withDuration: 0.5) {
             cell.layer.transform = CATransform3DIdentity
