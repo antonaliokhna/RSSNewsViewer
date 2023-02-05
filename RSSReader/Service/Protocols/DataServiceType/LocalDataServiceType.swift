@@ -8,7 +8,11 @@
 import Foundation
 
 protocol LocalDataServiceType {
-    func saveNews(models: [NewsModel]) async throws -> Data
     func fetchNews() async throws -> [NewsModel]
+
+    @discardableResult
+    func saveNews(models: [NewsModel]) async throws -> Data
+
+    @discardableResult
     func rewriteNewsBy(newNewsmodel: NewsModel) async throws -> Data
 }

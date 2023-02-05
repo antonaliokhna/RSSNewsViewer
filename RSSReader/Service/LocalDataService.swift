@@ -27,19 +27,18 @@ final class LocalDataService {
 // MARK: LocalDataServiceType
 
 extension LocalDataService: LocalDataServiceType {
-    @discardableResult
-    func saveNews(models: [NewsModel]) async throws -> Data {
-        return try await dataPusher.pushGenericValue(
+    func fetchNews() async throws -> [NewsModel] {
+        return try await dataFetcher.fetchGenericData(
             url: "news",
-            value: models,
             parameters: [:]
         )
     }
 
     @discardableResult
-    func fetchNews() async throws -> [NewsModel] {
-        return try await dataFetcher.fetchGenericData(
+    func saveNews(models: [NewsModel]) async throws -> Data {
+        return try await dataPusher.pushGenericValue(
             url: "news",
+            value: models,
             parameters: [:]
         )
     }

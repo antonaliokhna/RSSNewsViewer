@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 final class NewsViewModel: ObservableObject, CellViewModelType {
-    private let networkService: NetworkDataService
-    private let localService: LocalDataService
+    private let networkService: NetworkDataServiceType
+    private let localService: LocalDataServiceType
 
     private(set) var newsModel: NewsModel {
         didSet {
@@ -45,8 +45,8 @@ final class NewsViewModel: ObservableObject, CellViewModelType {
     let link: URL
 
     init(
-        networkService: NetworkDataService,
-        localService: LocalDataService,
+        networkService: NetworkDataServiceType,
+        localService: LocalDataServiceType,
         newsModel: NewsModel
     ) {
         self.networkService = networkService
@@ -108,6 +108,7 @@ extension NewsViewModel {
 // MARK: local service fucntions
 
 extension NewsViewModel {
+
     private func saveNewsModel() async {
         do {
             try await localService.rewriteNewsBy(newNewsmodel: newsModel)

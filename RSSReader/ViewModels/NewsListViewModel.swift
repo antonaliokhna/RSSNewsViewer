@@ -8,8 +8,8 @@
 import Foundation
 
 final class NewsListViewModel {
-    private let networkService: NetworkDataService = .init()
-    private let localDataService: LocalDataService = .init()
+    private let networkService: NetworkDataServiceType = NetworkDataService()
+    private let localService: LocalDataServiceType = LocalDataService()
 
     private(set) var newsViewModels: [NewsViewModel] = []
     private(set) var status: RequestStatuses = .loading
@@ -45,7 +45,7 @@ extension NewsListViewModel {
                     tempViewModels.append(
                         NewsViewModel(
                             networkService: networkService,
-                            localService: localDataService,
+                            localService: localService,
                             newsModel: newsModel
                         )
                     )
@@ -75,13 +75,13 @@ extension NewsListViewModel {
 
 extension NewsListViewModel {
     private func loadAndSetLocalNewsModels() async {
-        guard let loadedModels = try? await localDataService.fetchNews(),
+        guard let loadedModels = try? await localService.fetchNews(),
               newsViewModels.isEmpty else { return }
 
         newsViewModels = loadedModels.map {
             NewsViewModel(
                 networkService: networkService,
-                localService: localDataService,
+                localService: localService,
                 newsModel: $0
             )
         }
@@ -89,7 +89,7 @@ extension NewsListViewModel {
 
     private func saveLocalNewsModelData() async {
         do {
-            try await localDataService.saveNews(models: newsViewModels.map { $0.newsModel })
+            try await localService.saveNews(models: newsViewModels.map { $0.newsModel })
         } catch {
             // Some saving error...
         }
