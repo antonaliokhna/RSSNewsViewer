@@ -75,7 +75,7 @@ struct DetailNewsView: View {
                         .font(.subheadline)
                         .fontWeight(.light)
 
-                    Text(viewModel.pubDate)
+                    Text(viewModel.pubDate.description)
                         .font(.headline)
                         .bold()
                 }

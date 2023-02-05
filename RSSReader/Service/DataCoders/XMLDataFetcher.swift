@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import XMLParsing
+import XMLCoder
 
 final class XMLDataFetcher: NSObject, DataFetcherType {
     private let service: DataFetcherServiceType
@@ -40,7 +40,8 @@ final class XMLDataFetcher: NSObject, DataFetcherType {
 
         let formatter: DateFormatter = {
             let formatter = DateFormatter()
-            formatter.dateFormat = "EEE, dd MMM YYYY HH:mm:ss +hhss"
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.dateFormat = "E, d MMM yyyy HH:mm:ss Z"
             return formatter
         }()
         decoder.dateDecodingStrategy = .formatted(formatter)

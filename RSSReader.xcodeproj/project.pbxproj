@@ -14,6 +14,7 @@
 		643A445B298FAFB00045A739 /* DataPusherServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445A298FAFB00045A739 /* DataPusherServiceType.swift */; };
 		643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445C298FB0E90045A739 /* UserDetaultsService.swift */; };
 		643A445F298FB1D80045A739 /* LocalDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A445E298FB1D80045A739 /* LocalDataService.swift */; };
+		643A4462298FD7CF0045A739 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 643A4461298FD7CF0045A739 /* XMLCoder */; };
 		643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA825298E3FDD00CA082F /* RequestStatuses.swift */; };
 		643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA827298E6F5700CA082F /* NewsViewModel.swift */; };
 		643FA201298D312C0067910A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA200298D312C0067910A /* AppDelegate.swift */; };
@@ -88,6 +89,7 @@
 			files = (
 				643A4455298F18CE0045A739 /* SnapKit in Frameworks */,
 				643FA248298D864B0067910A /* Alamofire in Frameworks */,
+				643A4462298FD7CF0045A739 /* XMLCoder in Frameworks */,
 				643FA251298D93A40067910A /* XMLParsing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,6 +293,7 @@
 				643FA247298D864B0067910A /* Alamofire */,
 				643FA250298D93A40067910A /* XMLParsing */,
 				643A4454298F18CE0045A739 /* SnapKit */,
+				643A4461298FD7CF0045A739 /* XMLCoder */,
 			);
 			productName = RSSReader;
 			productReference = 643FA1FD298D312C0067910A /* RSSReader.app */;
@@ -324,6 +327,7 @@
 				643FA246298D864B0067910A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				643FA24F298D93A40067910A /* XCRemoteSwiftPackageReference "XMLParsing" */,
 				643A4453298F18CE0045A739 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				643A4460298FD7CF0045A739 /* XCRemoteSwiftPackageReference "XMLCoder" */,
 			);
 			productRefGroup = 643FA1FE298D312C0067910A /* Products */;
 			projectDirPath = "";
@@ -604,6 +608,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		643A4460298FD7CF0045A739 /* XCRemoteSwiftPackageReference "XMLCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CoreOffice/XMLCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
 		643FA246298D864B0067910A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire";
@@ -627,6 +639,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643A4453298F18CE0045A739 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		643A4461298FD7CF0045A739 /* XMLCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 643A4460298FD7CF0045A739 /* XCRemoteSwiftPackageReference "XMLCoder" */;
+			productName = XMLCoder;
 		};
 		643FA247298D864B0067910A /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

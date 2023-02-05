@@ -41,7 +41,7 @@ final class NewsTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .light)
 
-        label.text = "No"
+        label.text = "Unviewed"
         return label
     }()
 
@@ -67,13 +67,17 @@ final class NewsTableViewCell: UITableViewCell {
 
         image.image = viewModel.image
         title.text = viewModel.title
-        dateCreate.text = viewModel.pubDate
+        print(viewModel.pubDate)
+        //print(viewModel.pubDate.formatted())
+        dateCreate.text = viewModel.pubDate.formatted()
 
         if viewModel.viewed {
-            viewedCheckbox.text = "Viewed!"
+            viewedCheckbox.text = "Viewed"
+            //viewedCheckbox.backgroundColor = .gray
             backgroundColor = .systemGray5
         } else {
-            viewedCheckbox.text = "No"
+            viewedCheckbox.text = "Unviewed"
+
             backgroundColor = .none
         }
 

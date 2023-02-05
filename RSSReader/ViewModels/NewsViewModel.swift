@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 final class NewsViewModel: ObservableObject {
-    private let networkService: NetworkDataService = NetworkDataService()
-    private let localService: LocalDataService = LocalDataService()
+    private let networkService: NetworkDataService
+    private let localService: LocalDataService
     let newsModel: NewsModel
 
     var reloable: Reloadable?
@@ -18,7 +18,7 @@ final class NewsViewModel: ObservableObject {
     var author: String
     var title: String
     var description: String
-    var pubDate: String
+    var pubDate: Date
     var category: String
     var image: UIImage
 
@@ -28,7 +28,14 @@ final class NewsViewModel: ObservableObject {
     var imageData: Data?
     var viewed: Bool
 
-    init(newsModel: NewsModel) {
+    init(
+        networkService: NetworkDataService,
+        localService: LocalDataService,
+        newsModel: NewsModel
+    ) {
+        self.networkService = networkService
+        self.localService = localService
+
         self.newsModel = newsModel
 
         self.author = newsModel.author

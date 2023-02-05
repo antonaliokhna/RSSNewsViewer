@@ -21,7 +21,7 @@ struct NewsModel: Codable {
     let title: String
     let link: URL?
     let description: String
-    let pubDate: String
+    let pubDate: Date
     let enclosure: Enclosure?
     let category: String
 

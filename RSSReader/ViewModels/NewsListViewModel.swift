@@ -35,10 +35,16 @@ extension NewsListViewModel {
     func loadNewsData() async {
 
         if let loadedModels = try? await loadLocalNewsModelData(), newsViewModels.isEmpty {
-            self.newsViewModels = loadedModels.map { NewsViewModel(newsModel: $0) }
+            self.newsViewModels = loadedModels.map {
+                NewsViewModel(
+                    networkService: networkService,
+                    localService: localDataService,
+                    newsModel: $0
+                )
+
+            }
             print(self.newsViewModels.count)
         }
-
 
         do {
             let model = try await self.networkService.fetchRssNews()
@@ -48,7 +54,11 @@ extension NewsListViewModel {
                 if !newsViewModels.contains(where: { newsViewModel in
                     newsViewModel.title == newsModel.title
                 }) {
-                    tempViewModels.append(NewsViewModel(newsModel: newsModel))
+                    tempViewModels.append(NewsViewModel(
+                        networkService: networkService,
+                        localService: localDataService,
+                        newsModel: newsModel
+                    ))
                 }
             }
 
