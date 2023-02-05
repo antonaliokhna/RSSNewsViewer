@@ -37,9 +37,7 @@ final class NewsViewController: UIViewController {
         makeConstraints()
         setTableviewDelegateAndDataSourse()
 
-        Task {
-            await viewModel.loadNewsData()
-        }
+        loadViewModelData()
     }
 
     private func setUpViews() {
@@ -51,11 +49,15 @@ final class NewsViewController: UIViewController {
         newsTableView.delegate = self
     }
 
-    @objc private func refresh(_ sender: AnyObject) {
+    private func loadViewModelData() {
         Task {
             await viewModel.loadNewsData()
-            refreshControl.endRefreshing()
         }
+    }
+
+    @objc private func refresh(_ sender: AnyObject) {
+        loadViewModelData()
+        refreshControl.endRefreshing()
     }
 }
 
@@ -112,7 +114,7 @@ extension NewsViewController: UITableViewDataSource {
 
         let viewModel = viewModel.getNewsViewModel(at: indexPath)
         cell.setViewModel(viewModel: viewModel)
-
+        
         return cell
     }
 }
