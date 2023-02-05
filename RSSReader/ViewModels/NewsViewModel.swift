@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class NewsViewModel: ObservableObject {
+final class NewsViewModel: ObservableObject, CellViewModelType {
     private let networkService: NetworkDataService
     private let localService: LocalDataService
 

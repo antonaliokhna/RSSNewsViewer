@@ -12,7 +12,10 @@ final class NewsTableView: UITableView {
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
 
-        register(NewsTableViewCell.self, forCellReuseIdentifier: "newsCell")
+        register(
+            NewsTableViewCell.self,
+            forCellReuseIdentifier: NewsTableViewCell.identifier
+        )
         configure()
     }
 

@@ -127,7 +127,7 @@ extension NewsViewController: SkeletonTableViewDataSource {
         _ skeletonView: UITableView,
         cellIdentifierForRowAt indexPath: IndexPath
     ) -> ReusableCellIdentifier {
-        return "newsCell"
+        return NewsTableViewCell.identifier
     }
 
     func tableView(
@@ -142,7 +142,7 @@ extension NewsViewController: SkeletonTableViewDataSource {
         cellForRowAt indexPath: IndexPath
     ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "newsCell",
+            withIdentifier: NewsTableViewCell.identifier,
             for: indexPath
         ) as? NewsTableViewCell else { return UITableViewCell() }
 

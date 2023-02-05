@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 final class NewsTableViewCell: UITableViewCell {
+    static let identifier = "newsCell"
+
     private let contentImageView: UIImageView = {
         let image = UIImageView(image: nil)
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +66,7 @@ final class NewsTableViewCell: UITableViewCell {
         return label
     }()
 
-    private weak var viewModel: NewsViewModel? {
+    private weak var viewModel: CellViewModelType? {
         didSet {
             viewModel?.reloableDelegate = self
             reloadData()
@@ -83,7 +85,7 @@ final class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setViewModel(viewModel: NewsViewModel) {
+    func setViewModel(viewModel: CellViewModelType) {
         self.viewModel = viewModel
     }
 }
@@ -91,7 +93,7 @@ final class NewsTableViewCell: UITableViewCell {
 // MARK: private updated view functions
 
 extension NewsTableViewCell {
-    private func updateContent(viewModel: NewsViewModel) {
+    private func updateContent(viewModel: CellViewModelType) {
         contentImageView.image = viewModel.image
         titleLabel.text = viewModel.title
         datePubLabel.text = viewModel.pubDate
