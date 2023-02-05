@@ -132,6 +132,23 @@
 			path = DataServiceType;
 			sourceTree = "<group>";
 		};
+		643A44682990185E0045A739 /* DetailNewsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				643FA21C298D4D6E0067910A /* DetailNewsView.swift */,
+			);
+			path = DetailNewsScreen;
+			sourceTree = "<group>";
+		};
+		643A44692990186C0045A739 /* ListNewsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				643FA217298D35820067910A /* Controllers */,
+				643FA215298D35540067910A /* CustomViews */,
+			);
+			path = ListNewsScreen;
+			sourceTree = "<group>";
+		};
 		643AA824298E3FD500CA082F /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,12 +176,12 @@
 		643FA1FF298D312C0067910A /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
-				643AA824298E3FD500CA082F /* Helper */,
 				643FA224298D85590067910A /* Service */,
 				643FA24C298D8BC50067910A /* Models */,
 				643FA221298D83A10067910A /* ViewModels */,
 				643FA214298D354C0067910A /* Views */,
 				643FA249298D86FE0067910A /* Extensions */,
+				643AA824298E3FD500CA082F /* Helper */,
 				643FA216298D35660067910A /* Application */,
 				643FA209298D312D0067910A /* Assets.xcassets */,
 				643FA20B298D312D0067910A /* LaunchScreen.storyboard */,
@@ -176,10 +193,9 @@
 		643FA214298D354C0067910A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				643A44682990185E0045A739 /* DetailNewsScreen */,
+				643A44692990186C0045A739 /* ListNewsScreen */,
 				643A4450298F15940045A739 /* Protocols */,
-				643FA21C298D4D6E0067910A /* DetailNewsView.swift */,
-				643FA217298D35820067910A /* Controllers */,
-				643FA215298D35540067910A /* CustomViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";
