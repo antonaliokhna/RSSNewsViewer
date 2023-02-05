@@ -43,7 +43,6 @@
 		643FA248298D864B0067910A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 643FA247298D864B0067910A /* Alamofire */; };
 		643FA24B298D87170067910A /* AFError + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA24A298D87170067910A /* AFError + extensions.swift */; };
 		643FA24E298D8BDD0067910A /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA24D298D8BDD0067910A /* NewsModel.swift */; };
-		643FA251298D93A40067910A /* XMLParsing in Frameworks */ = {isa = PBXBuildFile; productRef = 643FA250298D93A40067910A /* XMLParsing */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,7 +91,6 @@
 				643A4455298F18CE0045A739 /* SnapKit in Frameworks */,
 				643FA248298D864B0067910A /* Alamofire in Frameworks */,
 				643A4462298FD7CF0045A739 /* XMLCoder in Frameworks */,
-				643FA251298D93A40067910A /* XMLParsing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +316,6 @@
 			name = RSSReader;
 			packageProductDependencies = (
 				643FA247298D864B0067910A /* Alamofire */,
-				643FA250298D93A40067910A /* XMLParsing */,
 				643A4454298F18CE0045A739 /* SnapKit */,
 				643A4461298FD7CF0045A739 /* XMLCoder */,
 			);
@@ -352,7 +349,6 @@
 			mainGroup = 643FA1F4298D312C0067910A;
 			packageReferences = (
 				643FA246298D864B0067910A /* XCRemoteSwiftPackageReference "Alamofire" */,
-				643FA24F298D93A40067910A /* XCRemoteSwiftPackageReference "XMLParsing" */,
 				643A4453298F18CE0045A739 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				643A4460298FD7CF0045A739 /* XCRemoteSwiftPackageReference "XMLCoder" */,
 			);
@@ -652,14 +648,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		643FA24F298D93A40067910A /* XCRemoteSwiftPackageReference "XMLParsing" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ShawnMoore/XMLParsing.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -677,11 +665,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643FA246298D864B0067910A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		643FA250298D93A40067910A /* XMLParsing */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 643FA24F298D93A40067910A /* XCRemoteSwiftPackageReference "XMLParsing" */;
-			productName = XMLParsing;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
