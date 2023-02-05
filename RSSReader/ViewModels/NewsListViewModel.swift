@@ -12,16 +12,9 @@ final class NewsListViewModel {
     private let localDataService: LocalDataService = .init()
 
     private(set) var newsViewModels: [NewsViewModel] = []
+    private(set) var status: RequestStatuses = .loading
 
     var reloableDelegate: Reloadable?
-
-    //    private(set) var status: RequestStatuses = .loading {
-    //        didSet {
-    //            DispatchQueue.main.async {
-    //                self.reloable?.reloadData()
-    //            }
-    //        }
-    //    }
 
     func getNewsViewModel(at indexPath: IndexPath) -> NewsViewModel {
         let news = newsViewModels[indexPath.row]
@@ -56,25 +49,25 @@ extension NewsListViewModel {
                             newsModel: newsModel
                         )
                     )
-                    //To avoid a warning
+                    // To avoid a warning
                     _ = newsViewModels.popLast()
                 }
             }
             tempViewModels.append(contentsOf: newsViewModels)
-            self.newsViewModels = tempViewModels
+            newsViewModels = tempViewModels
+            status = .sucsess
 
-            await self.saveLocalNewsModelData()
-            // self.status = .sucsess
+            await saveLocalNewsModelData()
         } catch {
-            //            guard let error = error as? CustomError else {
-            //                self.status = .failed(error: .localError(error: .unknownError))
-            //
-            //                return
-            //            }
-            //            self.status = .failed(error: error)
+            guard let error = error as? CustomError else {
+                status = .failed(error: .localError(error: .unknownError))
+
+                return
+            }
+            status = .failed(error: error)
         }
 
-        await self.updateUI()
+        await updateUI()
     }
 }
 

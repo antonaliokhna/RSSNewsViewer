@@ -30,21 +30,3 @@ extension CustomError: LocalizedError {
         return description
     }
 }
-
-// MARK: Getting error image name
-
-extension CustomError {
-    var errorImageName: String {
-        let imagePath: String
-        switch self {
-        case .networkError:
-            imagePath = "wifi.slash"
-        case .codableError:
-            imagePath = "network"
-        case .localError:
-            imagePath = "exclamationmark.triangle"
-        }
-
-        return imagePath
-    }
-}

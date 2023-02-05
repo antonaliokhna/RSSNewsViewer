@@ -17,6 +17,7 @@
 		643A4462298FD7CF0045A739 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 643A4461298FD7CF0045A739 /* XMLCoder */; };
 		643A4467299015E10045A739 /* LocalDataServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A4466299015E10045A739 /* LocalDataServiceType.swift */; };
 		643A446C299020F40045A739 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 643A446B299020F40045A739 /* SkeletonView */; };
+		643A446E299068D70045A739 /* CustomAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643A446D299068D70045A739 /* CustomAlertController.swift */; };
 		643AA826298E3FDD00CA082F /* RequestStatuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA825298E3FDD00CA082F /* RequestStatuses.swift */; };
 		643AA828298E6F5700CA082F /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643AA827298E6F5700CA082F /* NewsViewModel.swift */; };
 		643FA201298D312C0067910A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA200298D312C0067910A /* AppDelegate.swift */; };
@@ -54,6 +55,7 @@
 		643A445C298FB0E90045A739 /* UserDetaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetaultsService.swift; sourceTree = "<group>"; };
 		643A445E298FB1D80045A739 /* LocalDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataService.swift; sourceTree = "<group>"; };
 		643A4466299015E10045A739 /* LocalDataServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataServiceType.swift; sourceTree = "<group>"; };
+		643A446D299068D70045A739 /* CustomAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertController.swift; sourceTree = "<group>"; };
 		643AA825298E3FDD00CA082F /* RequestStatuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestStatuses.swift; sourceTree = "<group>"; };
 		643AA827298E6F5700CA082F /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		643FA1FD298D312C0067910A /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +149,7 @@
 			children = (
 				643FA217298D35820067910A /* Controllers */,
 				643FA215298D35540067910A /* CustomViews */,
+				643A446D299068D70045A739 /* CustomAlertController.swift */,
 			);
 			path = ListNewsScreen;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				643A445D298FB0E90045A739 /* UserDetaultsService.swift in Sources */,
 				643A4457298FAED10045A739 /* DataPusher.swift in Sources */,
 				643A4467299015E10045A739 /* LocalDataServiceType.swift in Sources */,
+				643A446E299068D70045A739 /* CustomAlertController.swift in Sources */,
 				643FA23B298D85590067910A /* NetworkDataServiceType.swift in Sources */,
 				643FA241298D85590067910A /* CustomError.swift in Sources */,
 				643FA201298D312C0067910A /* AppDelegate.swift in Sources */,

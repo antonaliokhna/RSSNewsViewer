@@ -45,8 +45,20 @@ final class NewsViewController: UIViewController {
 
 extension NewsViewController: Reloadable {
     func reloadData() {
-        newsTableView.reloadData()
-        stopSkeletonAnimation()
+        if case RequestStatuses.failed(let error) = viewModel.status {
+            CustomAlertController.showAlert(
+                vc: self,
+                title: error.localizedDescription,
+                customActions: [
+                    .init(title: "Reload", style: .default) { _ in
+                        self.loadViewModelData()
+                    }
+                ]
+            )
+        } else {
+            newsTableView.reloadData()
+            stopSkeletonAnimation()
+        }
     }
 }
 

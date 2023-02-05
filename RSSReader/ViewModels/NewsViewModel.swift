@@ -21,7 +21,6 @@ final class NewsViewModel: ObservableObject {
                 await saveNewsModel()
                 await updateUI()
             }
-
         }
     }
 
