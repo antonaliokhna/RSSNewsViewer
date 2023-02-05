@@ -96,9 +96,9 @@ extension NewsViewModel {
                 stringURL: imageURL.absoluteString
             )
 
-            guard let image = UIImage(data: imageData) else { return }
+            guard let uiImage = UIImage(data: imageData) else { return }
             newsModel = newsModel.updateModel(imageData: imageData)
-            self.image = image
+            image = uiImage
         } catch {
             // Some error...
         }

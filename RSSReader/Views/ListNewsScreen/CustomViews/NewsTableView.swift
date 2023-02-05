@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 final class NewsTableView: UITableView {
-
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
 
