@@ -16,7 +16,7 @@ private struct Constants {
     struct Subview {
         static let cornerRadius: CGFloat = 16
         static let titleSize: CGFloat = 16
-        static let subTitleSize: CGFloat = 14Ability to view all the details of the news, as well as the option to go to the article site.
+        static let subTitleSize: CGFloat = 14
         static let titleCountOfLines: Int = 3
         static let lineSpacing: CGFloat = 8
         static let lineCorderRadius: Int = 8
