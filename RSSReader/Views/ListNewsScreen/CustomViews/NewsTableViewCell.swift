@@ -16,8 +16,8 @@ private struct Constants {
     struct Subview {
         static let cornerRadius: CGFloat = 16
         static let titleSize: CGFloat = 16
-        static let subTitleSize: CGFloat = 14
-        static let titleCountOfLines: CGFloat = 3
+        static let subTitleSize: CGFloat = 14Ability to view all the details of the news, as well as the option to go to the article site.
+        static let titleCountOfLines: Int = 3
         static let lineSpacing: CGFloat = 8
         static let lineCorderRadius: Int = 8
         static let bottomPadding: CGFloat = 8
@@ -57,7 +57,7 @@ final class NewsTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.numberOfLines = Constants.Subview.lineCorderRadius
+        title.numberOfLines = Constants.Subview.titleCountOfLines
         title.font = .systemFont(
             ofSize: Constants.Subview.titleSize,
             weight: .bold
