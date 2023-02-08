@@ -32,6 +32,8 @@ final class NewsListViewModel {
 
 extension NewsListViewModel {
     func loadNewsData() async {
+        status = .loading
+
         await loadAndSetLocalNewsModels()
 
         do {
