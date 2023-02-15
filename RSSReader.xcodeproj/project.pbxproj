@@ -46,6 +46,7 @@
 		643FA248298D864B0067910A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 643FA247298D864B0067910A /* Alamofire */; };
 		643FA24B298D87170067910A /* AFError + extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA24A298D87170067910A /* AFError + extensions.swift */; };
 		643FA24E298D8BDD0067910A /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643FA24D298D8BDD0067910A /* NewsModel.swift */; };
+		64E080D8299D8DFB0054989A /* Semaphore in Frameworks */ = {isa = PBXBuildFile; productRef = 64E080D7299D8DFB0054989A /* Semaphore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64E080D8299D8DFB0054989A /* Semaphore in Frameworks */,
 				643A446C299020F40045A739 /* SkeletonView in Frameworks */,
 				643A4455298F18CE0045A739 /* SnapKit in Frameworks */,
 				643FA248298D864B0067910A /* Alamofire in Frameworks */,
@@ -343,6 +345,7 @@
 				643A4454298F18CE0045A739 /* SnapKit */,
 				643A4461298FD7CF0045A739 /* XMLCoder */,
 				643A446B299020F40045A739 /* SkeletonView */,
+				64E080D7299D8DFB0054989A /* Semaphore */,
 			);
 			productName = RSSReader;
 			productReference = 643FA1FD298D312C0067910A /* RSSReader.app */;
@@ -377,6 +380,7 @@
 				643A4453298F18CE0045A739 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				643A4460298FD7CF0045A739 /* XCRemoteSwiftPackageReference "XMLCoder" */,
 				643A446A299020F40045A739 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				64E080D6299D8DFB0054989A /* XCRemoteSwiftPackageReference "Semaphore" */,
 			);
 			productRefGroup = 643FA1FE298D312C0067910A /* Products */;
 			projectDirPath = "";
@@ -686,6 +690,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		64E080D6299D8DFB0054989A /* XCRemoteSwiftPackageReference "Semaphore" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/Semaphore.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -708,6 +720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 643FA246298D864B0067910A /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		64E080D7299D8DFB0054989A /* Semaphore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64E080D6299D8DFB0054989A /* XCRemoteSwiftPackageReference "Semaphore" */;
+			productName = Semaphore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

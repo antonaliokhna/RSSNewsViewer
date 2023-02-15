@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import Semaphore
 
 final class LocalDataService {
     private let dataFetcher: DataFetcherType
     private let dataPusher: DataPusherType
+
+    private let semaphore = AsyncSemaphore(value: 1)
 
     init(
         dataPusher: DataPusherType = DataPusher(
@@ -45,14 +48,19 @@ extension LocalDataService: LocalDataServiceType {
 
     @discardableResult
     func rewriteNewsBy(newNewsmodel: NewsModel) async throws -> Data {
-        var news = try await fetchNews()
+        await semaphore.wait()
 
-        news = news.map { NewsModel in
-            if newNewsmodel.title == NewsModel.title {
+        var news = try await fetchNews()
+        news = news.map { newsModel in
+            if newNewsmodel.title == newsModel.title {
                 return newNewsmodel
             } else {
-                return NewsModel
+                return newsModel
             }
+        }
+
+        defer {
+            semaphore.signal()
         }
 
         return try await saveNews(models: news)
