@@ -17,13 +17,14 @@ struct RssModel: Codable {
 }
 
 struct NewsModel: Codable {
-    let author: String
-    let title: String
-    let link: URL
-    let description: String
-    let pubDate: Date
-    let enclosure: Enclosure
-    let category: String
+    //The main fields are optional because API can lag...
+    let author: String?
+    let title: String?
+    let link: URL?
+    let description: String?
+    let pubDate: Date?
+    let enclosure: Enclosure?
+    let category: String?
 
     let viewed: Bool?
     let imageData: Data?

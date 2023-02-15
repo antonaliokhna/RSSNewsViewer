@@ -41,8 +41,8 @@ final class NewsViewModel: ObservableObject, CellViewModelType {
     let description: String
     let pubDate: String
     let category: String
-    let imageURL: URL
-    let link: URL
+    let imageURL: URL?
+    let link: URL?
 
     init(
         networkService: NetworkDataServiceType,
@@ -53,13 +53,13 @@ final class NewsViewModel: ObservableObject, CellViewModelType {
         self.localService = localService
         self.newsModel = newsModel
 
-        self.author = newsModel.author
-        self.title = newsModel.title
-        self.description = newsModel.description
-        self.pubDate = newsModel.pubDate.formatted()
-        self.category = newsModel.category
-        self.link = newsModel.link
-        self.imageURL = newsModel.enclosure.url
+        self.author = newsModel.author ?? "Without author"
+        self.title = newsModel.title ?? "Without title"
+        self.description = newsModel.description ?? "Without description"
+        self.pubDate = newsModel.pubDate?.formatted() ?? "Without date"
+        self.category = newsModel.category ?? "Without category"
+        self.link = newsModel.link ?? URL(string: "https.")!
+        self.imageURL = newsModel.enclosure?.url
 
         self.viewed = newsModel.viewed ?? false
 
@@ -90,10 +90,12 @@ final class NewsViewModel: ObservableObject, CellViewModelType {
 
 extension NewsViewModel {
     func loadImage() async {
-        guard imageData == nil else { return }
+        guard
+            let imageStringURL = imageURL?.absoluteString,
+            imageData == nil else { return }
         do {
             let imageData = try await networkService.fetchImageData(
-                stringURL: imageURL.absoluteString
+                stringURL: imageStringURL
             )
 
             guard let uiImage = UIImage(data: imageData) else { return }

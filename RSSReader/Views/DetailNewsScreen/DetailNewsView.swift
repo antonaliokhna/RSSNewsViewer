@@ -114,7 +114,10 @@ struct DetailNewsView: View {
 
             Divider()
 
-            Link("Link to article", destination: viewModel.link)
+            if let link = viewModel.link {
+                Link("Link to article", destination: link)
+            }
+
         }
         .padding()
     }
