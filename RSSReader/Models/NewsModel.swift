@@ -47,3 +47,19 @@ struct NewsModel: Codable {
         )
     }
 }
+
+extension NewsModel: Comparable {
+    static func < (lhs: NewsModel, rhs: NewsModel) -> Bool {
+        guard let lhsDate = lhs.pubDate else { return true }
+        guard let rhsDate = rhs.pubDate else { return false }
+        return lhsDate < rhsDate
+    }
+
+    static func == (lhs: NewsModel, rhs: NewsModel) -> Bool {
+        guard let lhsDate = lhs.pubDate, let rhsDate = rhs.pubDate else {
+            return false
+        }
+        return lhsDate == rhsDate
+    }
+
+}
