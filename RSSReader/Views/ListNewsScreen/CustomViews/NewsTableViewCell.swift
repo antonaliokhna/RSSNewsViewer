@@ -37,7 +37,7 @@ private struct Constants {
         static let contentPadding: CGFloat = 8
         static let imageWidth: CGFloat = 96
         static let titleLeadingPadding: CGFloat = -16
-        static let defaultSubViewsWidth: CGFloat = 128
+        static let defaultSubViewsWidth: CGFloat = 136
     }
 }
 
@@ -80,6 +80,7 @@ final class NewsTableViewCell: UITableViewCell {
             ofSize: Constants.Subview.subTitleSize,
             weight: .light
         )
+        date.textAlignment = .right
 
         skeletonConfig(
             view: date,
