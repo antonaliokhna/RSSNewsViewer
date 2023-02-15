@@ -71,16 +71,16 @@ extension NewsListViewModel {
         } catch {
             guard let error = error as? CustomError else {
                 status = .failed(error: .localError(error: .unknownError))
+                await updateUI()
 
                 return
             }
 
-            guard newsViewModels.count <= 0 else {
+            if newsViewModels.count <= 0 {
+                status = .failed(error: error)
+            } else {
                 status = .sucsess
-
-                return
             }
-            status = .failed(error: error)
         }
 
         await updateUI()
