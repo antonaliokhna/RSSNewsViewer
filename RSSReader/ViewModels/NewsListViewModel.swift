@@ -40,33 +40,41 @@ extension NewsListViewModel {
             let models = try await networkService.fetchRssNews()
             var tempViewModels: [NewsViewModel] = []
 
-            models.channel.item.forEach { newsModel in
+            models.channel.item.forEach { newNewsModels in
                 if !newsViewModels.contains(
-                    where: { $0.title == newsModel.title }
+                    where: { $0.title == newNewsModels.title }
                 ) {
-                    tempViewModels.append(
-                        NewsViewModel(
-                            networkService: networkService,
-                            localService: localService,
-                            newsModel: newsModel
-                        )
+                    let newsViewModel = NewsViewModel(
+                        networkService: networkService,
+                        localService: localService,
+                        newsModel: newNewsModels
                     )
-                    // To avoid a warning
-                    _ = newsViewModels.popLast()
+
+                    tempViewModels.append(newsViewModel)
                 }
             }
+
+            let countNewElements = tempViewModels.count
             tempViewModels.append(contentsOf: newsViewModels)
+
+            if newsViewModels.count > countNewElements {
+                tempViewModels = tempViewModels.dropLast(countNewElements)
+            }
             newsViewModels = tempViewModels
-            status = .sucsess
 
             await saveLocalNewsModelData()
+
+            status = .sucsess
         } catch {
             guard let error = error as? CustomError else {
                 status = .failed(error: .localError(error: .unknownError))
 
                 return
             }
-            status = .failed(error: error)
+
+            if newsViewModels.count <= 0 {
+                status = .failed(error: error)
+            }
         }
 
         await updateUI()
