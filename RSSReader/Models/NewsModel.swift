@@ -48,6 +48,8 @@ struct NewsModel: Codable {
     }
 }
 
+//MARK: Comparable
+
 extension NewsModel: Comparable {
     static func < (lhs: NewsModel, rhs: NewsModel) -> Bool {
         guard let lhsDate = lhs.pubDate else { return true }
