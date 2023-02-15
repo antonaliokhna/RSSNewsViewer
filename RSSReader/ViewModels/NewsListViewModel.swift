@@ -57,7 +57,7 @@ extension NewsListViewModel {
             let countNewElements = tempViewModels.count
             tempViewModels.append(contentsOf: newsViewModels)
 
-            if newsViewModels.count > countNewElements {
+            if newsViewModels.count >= countNewElements {
                 tempViewModels = tempViewModels.dropLast(countNewElements)
             }
             newsViewModels = tempViewModels
