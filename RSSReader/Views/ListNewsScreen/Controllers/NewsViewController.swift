@@ -70,6 +70,7 @@ extension NewsViewController: Reloadable {
         } else {
             newsTableView.reloadData()
             stopSkeletonAnimation()
+            stopRefresh()
         }
     }
 }
@@ -181,7 +182,9 @@ extension NewsViewController {
 
     @objc private func refresh() {
         loadViewModelData()
+    }
 
+    private func stopRefresh() {
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }

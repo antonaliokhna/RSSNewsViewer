@@ -1,5 +1,5 @@
 //
-//  NewsViewModel.swift
+//  NewsListViewModel.swift
 //  RSSReader
 //
 //  Created by Anton Aliokhna on 2/3/23.
@@ -34,7 +34,9 @@ extension NewsListViewModel {
     func loadNewsData() async {
         status = .loading
 
-        await loadAndSetLocalNewsModels()
+        if newsViewModels.count <= 0 {
+            await loadAndSetLocalNewsModels()
+        }
 
         do {
             let models = try await networkService.fetchRssNews()
@@ -56,6 +58,7 @@ extension NewsListViewModel {
 
             let countNewElements = tempViewModels.count
             tempViewModels.append(contentsOf: newsViewModels)
+            tempViewModels.sort(by: { $0.newsModel > $1.newsModel })
 
             if newsViewModels.count >= countNewElements {
                 tempViewModels = tempViewModels.dropLast(countNewElements)
@@ -72,9 +75,12 @@ extension NewsListViewModel {
                 return
             }
 
-            if newsViewModels.count <= 0 {
-                status = .failed(error: error)
+            guard newsViewModels.count <= 0 else {
+                status = .sucsess
+
+                return
             }
+            status = .failed(error: error)
         }
 
         await updateUI()

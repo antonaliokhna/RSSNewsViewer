@@ -11,6 +11,9 @@ final class LocalDataService {
     private let dataFetcher: DataFetcherType
     private let dataPusher: DataPusherType
 
+
+    //let semaphore = DispatchSemaphore(value: 0)
+
     init(
         dataPusher: DataPusherType = DataPusher(
             service: UserDetaultsService()
